@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HospitalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Doctors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nchar" MaxLength="25" />
+          <Property Name="LastName" Type="nchar" MaxLength="25" />
+          <Property Name="Posada" Type="nchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="Obstegenya">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="DoctorId" Type="int" />
+          <Property Name="PatientId" Type="int" />
+          <Property Name="Date" Type="date" />
+          <Property Name="TimeWith" Type="time" Precision="7" />
+          <Property Name="TimeTo" Type="time" Precision="7" />
+        </EntityType>
+        <EntityType Name="Patients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nchar" MaxLength="25" />
+          <Property Name="LastName" Type="nchar" MaxLength="25" />
+          <Property Name="BloodType" Type="varchar" MaxLength="2" />
+          <Property Name="DateBirth" Type="date" />
+        </EntityType>
+        <Association Name="FK_Obstegenya_ToDoctor">
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="0..1" />
+          <End Role="Obstegenya" Type="Self.Obstegenya" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obstegenya">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obstegenya_ToPatient">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="0..1" />
+          <End Role="Obstegenya" Type="Self.Obstegenya" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obstegenya">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HospitalModelStoreContainer">
+          <EntitySet Name="Doctors" EntityType="Self.Doctors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Obstegenya" EntityType="Self.Obstegenya" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patients" EntityType="Self.Patients" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Obstegenya_ToDoctor" Association="Self.FK_Obstegenya_ToDoctor">
+            <End Role="Doctors" EntitySet="Doctors" />
+            <End Role="Obstegenya" EntitySet="Obstegenya" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obstegenya_ToPatient" Association="Self.FK_Obstegenya_ToPatient">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="Obstegenya" EntitySet="Obstegenya" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HospitalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+          <Property Name="Posada" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Obstegenyas" Relationship="Self.FK_Obstegenya_ToDoctor" FromRole="Doctors" ToRole="Obstegenya" />
+        </EntityType>
+        <EntityType Name="Obstegenya">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="DoctorId" Type="Int32" />
+          <Property Name="PatientId" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="TimeWith" Type="Time" Precision="7" />
+          <Property Name="TimeTo" Type="Time" Precision="7" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK_Obstegenya_ToDoctor" FromRole="Obstegenya" ToRole="Doctors" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK_Obstegenya_ToPatient" FromRole="Obstegenya" ToRole="Patients" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+          <Property Name="BloodType" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="DateBirth" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Obstegenyas" Relationship="Self.FK_Obstegenya_ToPatient" FromRole="Patients" ToRole="Obstegenya" />
+        </EntityType>
+        <Association Name="FK_Obstegenya_ToDoctor">
+          <End Role="Doctors" Type="Self.Doctor" Multiplicity="0..1" />
+          <End Role="Obstegenya" Type="Self.Obstegenya" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obstegenya">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obstegenya_ToPatient">
+          <End Role="Patients" Type="Self.Patient" Multiplicity="0..1" />
+          <End Role="Obstegenya" Type="Self.Obstegenya" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obstegenya">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HospitalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Doctors" EntityType="Self.Doctor" />
+          <EntitySet Name="Obstegenyas" EntityType="Self.Obstegenya" />
+          <EntitySet Name="Patients" EntityType="Self.Patient" />
+          <AssociationSet Name="FK_Obstegenya_ToDoctor" Association="Self.FK_Obstegenya_ToDoctor">
+            <End Role="Doctors" EntitySet="Doctors" />
+            <End Role="Obstegenya" EntitySet="Obstegenyas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obstegenya_ToPatient" Association="Self.FK_Obstegenya_ToPatient">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="Obstegenya" EntitySet="Obstegenyas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HospitalModelStoreContainer" CdmEntityContainer="HospitalEntities">
+          <EntitySetMapping Name="Doctors">
+            <EntityTypeMapping TypeName="HospitalModel.Doctor">
+              <MappingFragment StoreEntitySet="Doctors">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Posada" ColumnName="Posada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Obstegenyas">
+            <EntityTypeMapping TypeName="HospitalModel.Obstegenya">
+              <MappingFragment StoreEntitySet="Obstegenya">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="TimeWith" ColumnName="TimeWith" />
+                <ScalarProperty Name="TimeTo" ColumnName="TimeTo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="HospitalModel.Patient">
+              <MappingFragment StoreEntitySet="Patients">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="BloodType" ColumnName="BloodType" />
+                <ScalarProperty Name="DateBirth" ColumnName="DateBirth" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
