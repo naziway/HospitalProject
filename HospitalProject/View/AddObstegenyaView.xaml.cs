@@ -11,21 +11,18 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using HospitalProject.ViewModel;
 
-namespace HospitalProject.View
+namespace HospitalProject.ViewModel
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AddObstegenia.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AddObstegenia : Window
     {
-        public MainWindow()
+        public AddObstegenia()
         {
             InitializeComponent();
-
-            this.DataContext = new MainWindowViewModel();
-            this.Show();
+            this.DataContext = new AddObstegenyaViewModel();
         }
     }
 }

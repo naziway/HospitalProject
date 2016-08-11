@@ -24,7 +24,7 @@ namespace HospitalProject.Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string BloodType { get; set; }
-        public Nullable<System.DateTime> DateBirth { get; set; }
+        public System.DateTime DateBirth { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Obstegenya> Obstegenyas { get; set; }

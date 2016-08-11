@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Наша Лікарня" Height="700" Width="550">
     <Grid>
-        <Image x:Name="image"  HorizontalAlignment="Left" Height="37" Margin="477,0,0,0" VerticalAlignment="Top" Width="41" Source="C:\Users\__it\Documents\visual studio 2015\Projects\HospitalProject\HospitalProject\sign.jpg" AutomationProperties.IsColumnHeader="True"/>
+
         <Label x:Name="label" Content="Обстеження" Height="52" Margin="153,-15,150,0" Width="239" FontSize="35" VerticalAlignment="Top" HorizontalAlignment="Center"/>
         <DataGrid x:Name="dataGrid" HorizontalAlignment="Center" Margin="10,90,10,0" VerticalAlignment="Top" Height="552" Width="522" ItemsSource="{Binding Data}"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="29" Margin="288,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" FontSize="18" Text="{Binding Request}"/>
@@ -20,6 +20,7 @@
             <ComboBoxItem Name="cbi4">Імені Лікаря</ComboBoxItem>
             <ComboBoxItem Name="cbi5">Прізвищі Лікаря</ComboBoxItem>
         </ComboBox>
+        <Button x:Name="button" Command="{Binding ClickCommand}" Content="Додати" HorizontalAlignment="Left" Margin="431,10,0,0" VerticalAlignment="Top" Width="75" FontSize="15" FontFamily="Times New Roman"/>
     </Grid>
 </Window>
 

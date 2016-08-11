@@ -2,7 +2,7 @@
 
 #pragma warning disable 1591
 // ReSharper disable UnusedMember.Global
-// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable MemberCanBepublic.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 // ReSharper disable IntroduceOptionalParameters.Global
 // ReSharper disable MemberCanBeProtected.Global
@@ -134,7 +134,7 @@ namespace HospitalProject.Annotations
   ///   [NotifyPropertyChangedInvocator]
   ///   protected virtual void NotifyChanged(string propertyName) { ... }
   ///
-  ///   private string _name;
+  ///   public string _name;
   ///   public string Name {
   ///     get { return _name; }
   ///     set { _name = value; NotifyChanged("LastName"); /* Warning */ }
@@ -226,7 +226,7 @@ namespace HospitalProject.Annotations
   /// <example><code>
   /// [LocalizationRequiredAttribute(true)]
   /// public class Foo {
-  ///   private string str = "my string"; // Warning: Localizable string
+  ///   public string str = "my string"; // Warning: Localizable string
   /// }
   /// </code></example>
   [AttributeUsage(AttributeTargets.All)]
@@ -398,7 +398,7 @@ namespace HospitalProject.Annotations
   /// The same as <c>System.Diagnostics.Contracts.PureAttribute</c>.
   /// </summary>
   /// <example><code>
-  /// [Pure] private int Multiply(int x, int y) { return x * y; }
+  /// [Pure] public int Multiply(int x, int y) { return x * y; }
   /// public void Foo() {
   ///   const int a = 2, b = 2;
   ///   Multiply(a, b); // Waring: Return value of pure method is not used

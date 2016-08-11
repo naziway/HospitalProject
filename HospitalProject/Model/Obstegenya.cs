@@ -15,11 +15,11 @@ namespace HospitalProject.Model
     public partial class Obstegenya
     {
         public int Id { get; set; }
-        public Nullable<int> DoctorId { get; set; }
-        public Nullable<int> PatientId { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<System.TimeSpan> TimeWith { get; set; }
-        public Nullable<System.TimeSpan> TimeTo { get; set; }
+        public int DoctorId { get; set; }
+        public int PatientId { get; set; }
+        public System.DateTime Date { get; set; }
+        public System.TimeSpan TimeWith { get; set; }
+        public System.TimeSpan TimeTo { get; set; }
     
         public virtual Doctor Doctor { get; set; }
         public virtual Patient Patient { get; set; }
