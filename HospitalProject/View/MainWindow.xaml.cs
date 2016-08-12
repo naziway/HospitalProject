@@ -27,5 +27,14 @@ namespace HospitalProject.View
             this.DataContext = new MainWindowViewModel();
             this.Show();
         }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+
+            AddObstegenia addObstegenyaView = new AddObstegenia();
+
+            addObstegenyaView.ShowDialog();
+
+        }
     }
 }

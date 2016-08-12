@@ -6,7 +6,7 @@ namespace Data
     public class DbObstegenyaModel : IDb<DbObstegenyaModel>
     {
         public int Id { get; set; }
-        public string Doctor{ get; set; }
+        public string Doctor { get; set; }
         public string DoctorName { get; set; }
         public string DoctorProf { get; set; }
         public string PatientName { get; set; }
@@ -52,11 +52,7 @@ namespace Data
                     TimeTo = b.TimeTo
                 })?.ToList<DbObstegenyaModel>();
             }
-
             return dbObstegenyaModel;
-
-
-
         }
 
         public void InsertData(DbObstegenyaModel data)

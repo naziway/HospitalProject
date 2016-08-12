@@ -19,19 +19,19 @@ namespace HospitalProject.ViewModel
     {
         private DbObstegenyaModel dbObstegenyaModel;
 
-        private Sourting source;
+        private Sourting sortSource;
 
-        private List<DbObstegenyaModel> Obsteg;
+        private List<DbObstegenyaModel> data;
 
         private string request;
 
-        public Sourting Source
+        public Sourting SortSource
         {
-            get { return source; }
+            get { return sortSource; }
             set
             {
-                source = value;
-                OnPropertyChanged("Source");
+                sortSource = value;
+                OnPropertyChanged("sortSource");
             }
         }
 
@@ -40,16 +40,29 @@ namespace HospitalProject.ViewModel
             get { return request; }
             set
             {
-                request = value;
-                OnPropertyChanged("Request");
+                if (value != request&& value!="")
+                {
+                    request = value;
+                    OnPropertyChanged("Request");
+                    Find();
+                }
+
             }
         }
+
+        private void Find()
+        {
+            Data = dbObstegenyaModel.GetData().Where(s => s.Doctor.Contains(Request)).ToList<DbObstegenyaModel>();
+
+
+        }
+
         public List<DbObstegenyaModel> Data
         {
-            get { return Obsteg; }
+            get { return data; }
             set
             {
-                Obsteg = value;
+                data = value;
                 OnPropertyChanged("Data");
             }
         }
@@ -59,11 +72,11 @@ namespace HospitalProject.ViewModel
         {
             dbObstegenyaModel = new DbObstegenyaModel();
             Data = dbObstegenyaModel.GetData();
-            
+
         }
 
-        
+
 
     }
-    
+
 }

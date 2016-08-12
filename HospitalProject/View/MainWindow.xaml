@@ -20,7 +20,7 @@
             <ComboBoxItem Name="cbi4">Імені Лікаря</ComboBoxItem>
             <ComboBoxItem Name="cbi5">Прізвищі Лікаря</ComboBoxItem>
         </ComboBox>
-        <Button x:Name="button" Command="{Binding ClickCommand}" Content="Додати" HorizontalAlignment="Left" Margin="431,10,0,0" VerticalAlignment="Top" Width="75" FontSize="15" FontFamily="Times New Roman"/>
+        <Button x:Name="button" Command="{Binding ClickCommand}" Content="Додати" HorizontalAlignment="Left" Margin="443,10,0,0" VerticalAlignment="Top" Width="75" FontSize="15" FontFamily="Times New Roman" Click="button_Click"/>
     </Grid>
 </Window>
 

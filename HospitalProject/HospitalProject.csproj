@@ -128,6 +128,10 @@
       <Project>{1712d5e6-bceb-4477-8474-64423793344c}</Project>
       <Name>Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DbTakingAway\DbTakingAway.csproj">
+      <Project>{3c143fed-f5a4-487b-85bb-7df0d761bba7}</Project>
+      <Name>DbTakingAway</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

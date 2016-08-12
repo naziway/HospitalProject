@@ -47,7 +47,9 @@ namespace HospitalProject.ViewModel
         {
 
             Check = $"doc={DocId} pat={PatId} data={Date} timewith={TimeWith} timeto={TimeTo} ";
+            AddObstegenia addObstegenyaView = new AddObstegenia();
 
+            addObstegenyaView.Show();
         }
 
         public string Check
@@ -59,9 +61,6 @@ namespace HospitalProject.ViewModel
                 OnPropertyChanged("Check");
             }
         }
-
-
-
         public int DocId
         {
             get { return docId; }
@@ -140,7 +139,6 @@ namespace HospitalProject.ViewModel
 
             }
         }
-
         public string TimeTo
         {
             get { return timeTo.ToShortTimeString(); }
@@ -157,11 +155,8 @@ namespace HospitalProject.ViewModel
                     OnPropertyChanged("TimeTo");
 
                 }
-
-
             }
         }
-
         public string TimeWith
         {
             get { return timeWith.ToShortTimeString(); }
@@ -176,7 +171,6 @@ namespace HospitalProject.ViewModel
                 {
                     timeWith = timeWith;
                     OnPropertyChanged("TimeWith");
-
                 }
 
             }
