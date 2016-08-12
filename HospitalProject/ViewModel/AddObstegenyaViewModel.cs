@@ -15,10 +15,8 @@ namespace HospitalProject.ViewModel
         private string doctor;
         private string patient;
         private string check;
-        private int docID;
+        private int docId;
         private int patId;
-
-
         private DateTime date = DateTime.Now;
         private DateTime timeTo = DateTime.Now;
         private DateTime timeWith = DateTime.Now;
@@ -48,12 +46,7 @@ namespace HospitalProject.ViewModel
         private void CheckAndAdd()
         {
 
-
-
-
-
-
-
+            Check = $"doc={DocId} pat={PatId} data={Date} timewith={TimeWith} timeto={TimeTo} ";
 
         }
 
@@ -71,10 +64,10 @@ namespace HospitalProject.ViewModel
 
         public int DocId
         {
-            get { return docID; }
+            get { return docId; }
             set
             {
-                docID = value;
+                docId = value;
                 OnPropertyChanged("DocId");
             }
         }

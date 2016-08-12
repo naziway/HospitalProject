@@ -72,7 +72,6 @@
     <Compile Include="Doctor.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="IDb.cs" />
     <Compile Include="Obstegenya.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -108,6 +107,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DbTakingAway\DbTakingAway.csproj">
+      <Project>{3c143fed-f5a4-487b-85bb-7df0d761bba7}</Project>
+      <Name>DbTakingAway</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

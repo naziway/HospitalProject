@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HospitalProject.ViewModel"
         mc:Ignorable="d"
-        Title="Нове Обстеження" Height="300" Width="300">
+        Title="Нове Обстеження" Height="400" Width="300">
     <Grid>
         <Label x:Name="label" Content="Лікар" HorizontalAlignment="Left" Margin="21,16,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" Width="78"/>
         <Label x:Name="label2" Content="Пацієнт" HorizontalAlignment="Left" Margin="21,51,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" Width="78"/>
@@ -18,7 +18,7 @@
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="104,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Text="{Binding Date}" />
         <TextBox x:Name="textBox_Copy" HorizontalAlignment="Left" Height="23" Margin="104,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Text="{Binding TimeWith}"/>
         <TextBox x:Name="textBox_Copy1" HorizontalAlignment="Left" Height="23" Margin="104,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Text="{Binding TimeTo}"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="21,225,0,0" TextWrapping="Wrap" Text="{Binding Check}" VerticalAlignment="Top" Width="61"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="88" Margin="14,259,0,0" TextWrapping="Wrap" Text="{Binding Check}" VerticalAlignment="Top" Width="259"/>
 
     </Grid>
 </Window>
