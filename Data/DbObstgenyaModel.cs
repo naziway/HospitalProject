@@ -6,7 +6,10 @@ namespace Data
     public class DbObstegenyaModel : IDb<DbObstegenyaModel>
     {
         public int Id { get; set; }
-        public string Doctor { get; set; }
+        public string Doctor{ get; set; }
+        public string DoctorName { get; set; }
+        public string DoctorProf { get; set; }
+        public string PatientName { get; set; }
         public string Patient { get; set; }
         public System.DateTime Date { get; set; }
         public System.TimeSpan TimeWith { get; set; }
@@ -27,7 +30,9 @@ namespace Data
                 var join = doctor?.Join(obstegenyas, x => x.Id, y => y.Id, (b, a) => new
                 {
                     Id = a.Id,
-                    Doctor = b.FirstName + b.LastName + b.Posada,
+                    Doctor = b.FirstName,
+                    DoctorName = b.LastName,
+                    DoctorProf = b.Posada,
                     Patient = a.PatientId,
                     Date = a.Date,
                     TimeWith = a.TimeWith,
@@ -38,10 +43,13 @@ namespace Data
                 {
                     Id = a.Id,
                     Doctor = b.Doctor,
-                    Patient = a.FirstName + a.LastName + a.DateBirth,
-                  //  Date = b.Date,
-                   // TimeWith = b.TimeWith,
-                   // TimeTo = b.TimeTo
+                    DoctorName = b.DoctorName,
+                    DoctorProf = b.DoctorProf,
+                    Patient = a.FirstName,
+                    PatientName = a.LastName,
+                    Date = b.Date,
+                    TimeWith = b.TimeWith,
+                    TimeTo = b.TimeTo
                 })?.ToList<DbObstegenyaModel>();
             }
 

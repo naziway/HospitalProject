@@ -17,11 +17,11 @@ namespace HospitalProject.ViewModel
     }
     public class MainWindowViewModel : BaseViewModel
     {
-        private DbPatient dbPatientModel;
+        private DbObstegenyaModel dbObstegenyaModel;
 
         private Sourting source;
 
-        private List<DbPatientModel> Obsteg;
+        private List<DbObstegenyaModel> Obsteg;
 
         private string request;
 
@@ -44,7 +44,7 @@ namespace HospitalProject.ViewModel
                 OnPropertyChanged("Request");
             }
         }
-        public List<DbPatientModel> Data
+        public List<DbObstegenyaModel> Data
         {
             get { return Obsteg; }
             set
@@ -57,8 +57,8 @@ namespace HospitalProject.ViewModel
 
         public MainWindowViewModel()
         {
-            dbPatientModel = new DbPatient();
-            Data = dbPatientModel.GetData();
+            dbObstegenyaModel = new DbObstegenyaModel();
+            Data = dbObstegenyaModel.GetData();
             
         }
 

@@ -23,7 +23,7 @@ namespace Data
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string BloodType { get; set; }
-        public Nullable<System.DateTime> DateBirth { get; set; }
+        public System.DateTime DateBirth { get; set; }
     
         public virtual ICollection<Obstegenya> Obstegenyas { get; set; }
     }

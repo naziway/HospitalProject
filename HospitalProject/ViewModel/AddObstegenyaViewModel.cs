@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-//using HospitalProject.Model;
+using Data;
 
 namespace HospitalProject.ViewModel
 {
     public class AddObstegenyaViewModel : BaseViewModel
     {
-       // private HospitalEntities data = new HospitalEntities();
+        private DbPatientModel dbPatientModel = new DbPatientModel();
+        private DbDoctorModel dbDoctorModel = new DbDoctorModel();
         private List<string> chooseDoctor;
         private List<string> choosePatient;
         private string doctor;
@@ -25,8 +26,9 @@ namespace HospitalProject.ViewModel
         public AddObstegenyaViewModel()
         {
 
-       //     ChooseDoctor = data.Doctors.Select(s => s.Id + s.FirstName + s.LastName).ToList<string>();
-        //    ChoosePatient = data.Patients.Select(s => s.Id + s.FirstName + s.LastName).ToList<string>();
+            ChooseDoctor = dbDoctorModel.GetData().Select(s => s.FirstName.TrimEnd() + " " + s.LastName.TrimEnd() + " " + s.Posada.TrimEnd()).ToList<string>();
+            ChoosePatient = dbPatientModel.GetData().Select(s => s.FirstName.TrimEnd() + " " + s.LastName.TrimEnd() + " " + s.DateBirth.ToShortDateString()
+                                                    .TrimEnd()).ToList<string>();
             DocId = 0;
             PatId = 0;
 
