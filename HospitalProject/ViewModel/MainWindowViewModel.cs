@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Documents;
 using System.Windows.Input;
-using HospitalProject.Model;
+//using HospitalProject.Model;
 
 namespace HospitalProject.ViewModel
 {
@@ -18,7 +18,7 @@ namespace HospitalProject.ViewModel
 
         private Sourting source;
 
-        private List<Obstegenya> Obsteg;
+     //   private List<Obstegenya> Obsteg;
 
         private string request;
 
@@ -41,17 +41,17 @@ namespace HospitalProject.ViewModel
                 OnPropertyChanged("Request");
             }
         }
-        public List<Obstegenya> Data
-        {
-            get { return Obsteg; }
-            set
-            {
-                Data = value;
-                OnPropertyChanged("Data");
-            }
-        }
+     //   public List<Obstegenya> Data
+      //  {
+      //      get { return Obsteg; }
+       //     set
+       //     {
+       //         Data = value;
+       //         OnPropertyChanged("Data");
+       //     }
+      //  }
 
-
+/*
         public MainWindowViewModel()
         {
             Task<List<Obstegenya>> Obsteg;
@@ -71,6 +71,7 @@ namespace HospitalProject.ViewModel
             return data.Obstegenyas.ToList<Obstegenya>();
         }
 
-
+*/
     }
+    
 }

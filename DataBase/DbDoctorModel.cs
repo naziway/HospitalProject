@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace DataBase
 {
-    public class DbDoctorModel:IDb<DbDoctorModel>
+    public class DbDoctorModel : IDb<DbDoctorModel>
     {
-        
+
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -14,15 +14,15 @@ namespace DataBase
 
 
 
-        public  List<DbDoctorModel> GetData()
+        public List<DbDoctorModel> GetData()
         {
             List<DbDoctorModel> dbDoctors = null;
 
             using (HospitalEntities dbData = new HospitalEntities())
             {
-              dbDoctors =  dbData.Doctors.Select(
-                    s => new DbDoctorModel() {Id = s.Id, FirstName = s.FirstName, LastName = s.LastName, Posada = s.Posada})
-                    .ToList<DbDoctorModel>();
+                dbDoctors = dbData.Doctors.Select(
+                      s => new DbDoctorModel() { Id = s.Id, FirstName = s.FirstName, LastName = s.LastName, Posada = s.Posada })
+                      .ToList<DbDoctorModel>();
             }
 
             return dbDoctors;

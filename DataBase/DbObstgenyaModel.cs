@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 namespace DataBase
 {
-    public class DbObstegenyaModel:IDb<DbObstegenyaModel>
+    public class DbObstegenyaModel : IDb<DbObstegenyaModel>
     {
         public int Id { get; set; }
         public string Doctor { get; set; }
@@ -26,14 +26,14 @@ namespace DataBase
 
                 var join = doctor.Join(obstegenyas, x => x.Id, y => y.Id, (b, a) => new
                 {
-                    Id =a.Id,
-                    Doctor=b.FirstName+b.LastName+b.Posada,
-                    Patient =a.PatientId,
+                    Id = a.Id,
+                    Doctor = b.FirstName + b.LastName + b.Posada,
+                    Patient = a.PatientId,
                     Date = a.Date,
-                    TimeWith=a.TimeWith,
+                    TimeWith = a.TimeWith,
                     TimeTo = a.TimeTo
                 }).ToList();
-                
+
                 dbObstegenyaModel = join.Join(patient, x => x.Id, y => y.Id, (b, a) => new DbObstegenyaModel()
                 {
                     Id = a.Id,
