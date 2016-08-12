@@ -4,6 +4,8 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Documents;
 using System.Windows.Input;
+using Data;
+
 //using HospitalProject.Model;
 
 namespace HospitalProject.ViewModel
@@ -15,10 +17,11 @@ namespace HospitalProject.ViewModel
     }
     public class MainWindowViewModel : BaseViewModel
     {
+        private DbPatient dbPatientModel;
 
         private Sourting source;
 
-     //   private List<Obstegenya> Obsteg;
+        private List<DbPatientModel> Obsteg;
 
         private string request;
 
@@ -41,37 +44,26 @@ namespace HospitalProject.ViewModel
                 OnPropertyChanged("Request");
             }
         }
-     //   public List<Obstegenya> Data
-      //  {
-      //      get { return Obsteg; }
-       //     set
-       //     {
-       //         Data = value;
-       //         OnPropertyChanged("Data");
-       //     }
-      //  }
+        public List<DbPatientModel> Data
+        {
+            get { return Obsteg; }
+            set
+            {
+                Obsteg = value;
+                OnPropertyChanged("Data");
+            }
+        }
 
-/*
+
         public MainWindowViewModel()
         {
-            Task<List<Obstegenya>> Obsteg;
-
-            Obsteg = GetObsteTask();
-
-            Obsteg.Wait();
-
-            this.Obsteg = Obsteg.Result;
-
+            dbPatientModel = new DbPatient();
+            Data = dbPatientModel.GetData();
+            
         }
 
-        public async Task<List<Obstegenya>> GetObsteTask()
-        {
-            HospitalEntities data = new HospitalEntities();
+        
 
-            return data.Obstegenyas.ToList<Obstegenya>();
-        }
-
-*/
     }
     
 }

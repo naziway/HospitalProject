@@ -2,7 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 
-namespace DataBase
+namespace Data
 {
     public class DbDoctorModel : IDb<DbDoctorModel>
     {

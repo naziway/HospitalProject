@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DataBase
+namespace Data
 {
     public interface IDb<T>
     {
