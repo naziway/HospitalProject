@@ -50,20 +50,35 @@ namespace HospitalProject.ViewModel
             {
                 return _addCommand ?? (_addCommand = new CommandHandler(() =>
                 {
-                    if (
-                        new DbDoctorModel().InsertData(new DbDoctorModel()
-                        {
-                            FirstName = FirstName,
-                            LastName = LastName,
-                            Posada = Prof
-                        }))
-                    {
-                        MessageBox.Show("ok!!!");
-                    }
-
+                    CheckFilld();
                 }, _canExecute)); ;
             }
         }
+
+        private void CheckFilld()
+        {
+            if (FirstName == null || LastName == null || Prof == null)
+                MessageBox.Show("Незаповнені поля");
+            else
+            {
+                if (new DbDoctorModel().InsertData(new DbDoctorModel()
+                {
+                    FirstName = FirstName,
+                    LastName = LastName,
+                    Posada = Prof
+                }))
+                {
+                    MessageBox.Show("Данні успішно додані");
+                }
+                else
+                {
+                    MessageBox.Show("Данні не додані");
+                }
+
+            }
+            
+        }
+
         #endregion
     }
 }
