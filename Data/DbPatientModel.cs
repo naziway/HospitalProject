@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
@@ -29,7 +30,25 @@ namespace Data
 
         public bool InsertData(DbPatientModel data)
         {
-            throw new System.NotImplementedException();
+            Patient obs = new Patient();
+            obs.Id = GetData().Last().Id + 1;
+            obs.FirstName = data.FirstName;
+            obs.LastName = data.LastName;
+            obs.BloodType = data.BloodType;
+            obs.DateBirth = data.DateBirth;
+            using (HospitalEntities dbData = new HospitalEntities())
+            {
+                try
+                {
+                    dbData.Patients.Add(obs);
+                    dbData.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
         }
 
         public bool UpdateData(DbPatientModel data)

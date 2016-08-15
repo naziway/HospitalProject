@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Input;
 using Data;
+using HospitalProject.View;
 
 namespace HospitalProject.ViewModel
 {
@@ -49,8 +50,34 @@ namespace HospitalProject.ViewModel
                 }, _canExecute)); ;
             }
         }
+        private ICommand _addDoctor;
+        public ICommand AddDoctor
+        {
+            get
+            {
+                return _addDoctor ?? (_addDoctor = new CommandHandler(() =>
+                {
+                    AddDoctorView addDoctorView = new AddDoctorView();
+                    addDoctorView.ShowDialog();
+                }, _canExecute)); ;
+            }
+        }
+        private ICommand _addPatient;
+        public ICommand AddPatient
+        {
+            get
+            {
+                return _addPatient ?? (_addPatient = new CommandHandler(() =>
+                {
 
-        
+                    AddPatientView addPatientView = new AddPatientView();
+                    addPatientView.ShowDialog();
+
+                }, _canExecute)); ;
+            }
+        }
+
+
 
         #endregion
 

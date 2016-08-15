@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading;
@@ -30,7 +31,25 @@ namespace Data
 
         public bool InsertData(DbDoctorModel data)
         {
-            throw new System.NotImplementedException();
+            Doctor obs = new Doctor();
+            obs.Id = GetData().Last().Id+1;
+            obs.FirstName = data.FirstName;
+            obs.LastName = data.LastName;
+            obs.Posada = data.Posada;
+
+            using (HospitalEntities dbData = new HospitalEntities())
+            {
+                try
+                {
+                    dbData.Doctors.Add(obs);
+                    dbData.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
         }
 
         public bool UpdateData(DbDoctorModel data)

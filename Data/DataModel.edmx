@@ -4,39 +4,39 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HospitalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="HospitalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Doctors">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="FirstName" Type="nchar" MaxLength="25" />
-          <Property Name="LastName" Type="nchar" MaxLength="25" />
-          <Property Name="Posada" Type="nchar" MaxLength="25" />
+          <Property Name="FirstName" Type="nchar" MaxLength="25" Nullable="false" />
+          <Property Name="LastName" Type="nchar" MaxLength="25" Nullable="false" />
+          <Property Name="Posada" Type="nchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <EntityType Name="Obstegenya">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="DoctorId" Type="int" />
-          <Property Name="PatientId" Type="int" />
-          <Property Name="Date" Type="date" />
-          <Property Name="TimeWith" Type="time" Precision="7" />
-          <Property Name="TimeTo" Type="time" Precision="7" />
+          <Property Name="DoctorId" Type="int" Nullable="false" />
+          <Property Name="PatientId" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="TimeWith" Type="time" Precision="7" Nullable="false" />
+          <Property Name="TimeTo" Type="time" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Patients">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="FirstName" Type="nchar" MaxLength="25" />
-          <Property Name="LastName" Type="nchar" MaxLength="25" />
-          <Property Name="BloodType" Type="varchar" MaxLength="2" />
-          <Property Name="DateBirth" Type="date" />
+          <Property Name="FirstName" Type="nchar" MaxLength="25" Nullable="false" />
+          <Property Name="LastName" Type="nchar" MaxLength="25" Nullable="false" />
+          <Property Name="BloodType" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="DateBirth" Type="date" Nullable="false" />
         </EntityType>
         <Association Name="FK_Obstegenya_ToDoctor">
-          <End Role="Doctors" Type="Self.Doctors" Multiplicity="0..1" />
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="1" />
           <End Role="Obstegenya" Type="Self.Obstegenya" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Doctors">
@@ -48,7 +48,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Obstegenya_ToPatient">
-          <End Role="Patients" Type="Self.Patients" Multiplicity="0..1" />
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1" />
           <End Role="Obstegenya" Type="Self.Obstegenya" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Patients">
@@ -82,9 +82,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
-          <Property Name="Posada" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="25" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Posada" Type="String" MaxLength="25" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Obstegenyas" Relationship="Self.FK_Obstegenya_ToDoctor" FromRole="Doctors" ToRole="Obstegenya" />
         </EntityType>
         <EntityType Name="Obstegenya">
@@ -92,11 +92,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="DoctorId" Type="Int32" />
-          <Property Name="PatientId" Type="Int32" />
-          <Property Name="Date" Type="DateTime" Precision="0" />
-          <Property Name="TimeWith" Type="Time" Precision="7" />
-          <Property Name="TimeTo" Type="Time" Precision="7" />
+          <Property Name="DoctorId" Type="Int32" Nullable="false" />
+          <Property Name="PatientId" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TimeWith" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="TimeTo" Type="Time" Nullable="false" Precision="7" />
           <NavigationProperty Name="Doctor" Relationship="Self.FK_Obstegenya_ToDoctor" FromRole="Obstegenya" ToRole="Doctors" />
           <NavigationProperty Name="Patient" Relationship="Self.FK_Obstegenya_ToPatient" FromRole="Obstegenya" ToRole="Patients" />
         </EntityType>
@@ -105,14 +105,14 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
-          <Property Name="BloodType" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="DateBirth" Type="DateTime" Precision="0" />
+          <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="25" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="BloodType" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateBirth" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Obstegenyas" Relationship="Self.FK_Obstegenya_ToPatient" FromRole="Patients" ToRole="Obstegenya" />
         </EntityType>
         <Association Name="FK_Obstegenya_ToDoctor">
-          <End Role="Doctors" Type="Self.Doctor" Multiplicity="0..1" />
+          <End Role="Doctors" Type="Self.Doctor" Multiplicity="1" />
           <End Role="Obstegenya" Type="Self.Obstegenya" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Doctors">
@@ -124,7 +124,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Obstegenya_ToPatient">
-          <End Role="Patients" Type="Self.Patient" Multiplicity="0..1" />
+          <End Role="Patients" Type="Self.Patient" Multiplicity="1" />
           <End Role="Obstegenya" Type="Self.Obstegenya" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Patients">
@@ -203,7 +203,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
