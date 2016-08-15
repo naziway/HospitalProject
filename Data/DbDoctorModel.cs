@@ -28,12 +28,12 @@ namespace Data
             return dbDoctors;
         }
 
-        public void InsertData(DbDoctorModel data)
+        public bool InsertData(DbDoctorModel data)
         {
             throw new System.NotImplementedException();
         }
 
-        public void UpdateData(DbDoctorModel data)
+        public bool UpdateData(DbDoctorModel data)
         {
             throw new System.NotImplementedException();
         }

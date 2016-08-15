@@ -10,6 +10,7 @@ namespace HospitalProject.ViewModel
     public class AddObstegenyaViewModel : BaseViewModel
     {
         private List<DbDoctorModel> doctor;
+        private List<DbPatientModel> patient;
         private List<string> chooseDoctor;
         private List<string> choosePatient;
         private string check;
@@ -25,6 +26,7 @@ namespace HospitalProject.ViewModel
             DocId = 0;
             PatId = 0;
         }
+
         #region            Command
 
         private ICommand _clickCommand;
@@ -34,10 +36,22 @@ namespace HospitalProject.ViewModel
             {
                 return _clickCommand ?? (_clickCommand = new CommandHandler(() =>
                 {
-                    Check = CheckAndAdd().ToString();
+
+                    if (CheckAndAdd())
+                    {
+                        if (SendAdd())
+                        {
+                            MainWindowViewModel.dbObstegenyaModel= null;
+                            Check = "Додали нове обстеження";
+                        }
+                    }
+
                 }, _canExecute)); ;
             }
         }
+
+        
+
         #endregion
 
         #region Property
@@ -89,8 +103,12 @@ namespace HospitalProject.ViewModel
             get
             {
                 if (choosePatient == null)
-                    choosePatient = new DbPatientModel().GetData().Select(s => s.FirstName.TrimEnd() + " " + s.LastName.TrimEnd() +
-                                    " " + s.DateBirth.ToShortDateString().TrimEnd()).ToList<string>();
+                {
+                    patient = new DbPatientModel().GetData();
+                    choosePatient = patient.Select(s => s.FirstName.TrimEnd()
+                                                      + " " + s.LastName.TrimEnd() + " " + s.BloodType.TrimEnd())
+                        .ToList<string>();
+                }
                 return choosePatient;
             }
         }
@@ -149,6 +167,8 @@ namespace HospitalProject.ViewModel
             }
         }
         #endregion
+
+        #region Logic
         private bool CheckAndAdd()
         {
             int doctorId = doctor.ElementAt(DocId).Id;
@@ -175,5 +195,25 @@ namespace HospitalProject.ViewModel
             }
             return true;
         }
+        private bool SendAdd()
+        {
+            int doctorId = doctor.ElementAt(DocId).Id;
+            int patientId = patient.ElementAt(PatId).Id;
+            DbObstegenyaModel dbObstegenyaModel = new DbObstegenyaModel();
+
+            dbObstegenyaModel.Id = MainWindowViewModel.dbObstegenyaModel.Last().Id + 1;
+            dbObstegenyaModel.DoctorId = doctor.Single(s => s.Id == doctorId).Id;
+            dbObstegenyaModel.PatientId = patient.Single(s => s.Id == patientId).Id;
+            dbObstegenyaModel.Doctor = doctor.Single(s => s.Id == doctorId).FirstName;
+            dbObstegenyaModel.DoctorName = doctor.Single(s => s.Id == doctorId).LastName;
+            dbObstegenyaModel.DoctorProf = doctor.Single(s => s.Id == doctorId).Posada;
+            dbObstegenyaModel.Date = date;
+            dbObstegenyaModel.Patient = patient.Single(s => s.Id == patientId).FirstName;
+            dbObstegenyaModel.PatientName = patient.Single(s => s.Id == patientId).LastName;
+            dbObstegenyaModel.TimeWith = timeWith;
+            dbObstegenyaModel.TimeTo = timeTo;
+            return new DbObstegenyaModel().InsertData(dbObstegenyaModel);
+        }
+        #endregion
     }
 }

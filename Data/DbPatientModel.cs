@@ -27,12 +27,12 @@ namespace Data
             return dbPatient;
         }
 
-        public void InsertData(DbPatientModel data)
+        public bool InsertData(DbPatientModel data)
         {
             throw new System.NotImplementedException();
         }
 
-        public void UpdateData(DbPatientModel data)
+        public bool UpdateData(DbPatientModel data)
         {
             throw new System.NotImplementedException();
         }

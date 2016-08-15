@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading;
@@ -9,6 +10,7 @@ namespace Data
     {
         public int Id { get; set; }
         public int DoctorId { get; set; }
+        public int PatientId { get; set; }
         public string Doctor { get; set; }
         public string DoctorName { get; set; }
         public string DoctorProf { get; set; }
@@ -33,7 +35,8 @@ namespace Data
                 var join = doctor?.Join(obstegenyas, x => x.Id, y => y.Id, (b, a) => new
                 {
                     Id = a.Id,
-                    Doctorid=b.Id,
+                    Doctorid = b.Id,
+                    Patientid = a.Id,
                     Doctor = b.FirstName,
                     DoctorName = b.LastName,
                     DoctorProf = b.Posada,
@@ -47,6 +50,7 @@ namespace Data
                 {
                     Id = a.Id,
                     DoctorId = b.Doctorid,
+                    PatientId = b.Patientid,
                     Doctor = b.Doctor,
                     DoctorName = b.DoctorName,
                     DoctorProf = b.DoctorProf,
@@ -60,14 +64,34 @@ namespace Data
             return dbObstegenyaModel;
         }
 
-        
 
-        public void InsertData(DbObstegenyaModel data)
+
+        public bool InsertData(DbObstegenyaModel data)
         {
-            throw new System.NotImplementedException();
+            Obstegenya obs = new Obstegenya();
+            obs.Id = data.Id;
+            obs.DoctorId = data.DoctorId;
+            obs.PatientId = data.PatientId;
+            obs.Date = data.Date;
+            obs.TimeWith = data.TimeWith;
+            obs.TimeTo = data.TimeTo;
+            using (HospitalEntities dbData = new HospitalEntities())
+            {
+                dbData.Obstegenyas.Add(obs);
+                try
+                {
+                    dbData.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
         }
 
-        public void UpdateData(DbObstegenyaModel data)
+
+        public bool UpdateData(DbObstegenyaModel data)
         {
             throw new System.NotImplementedException();
         }
