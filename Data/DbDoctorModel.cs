@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading;
 
 namespace Data
 {
@@ -24,7 +25,6 @@ namespace Data
                       s => new DbDoctorModel() { Id = s.Id, FirstName = s.FirstName, LastName = s.LastName, Posada = s.Posada })
                       .ToList<DbDoctorModel>();
             }
-
             return dbDoctors;
         }
 

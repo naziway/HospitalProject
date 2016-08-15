@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading;
+
 namespace Data
 {
     public class DbObstegenyaModel : IDb<DbObstegenyaModel>
     {
         public int Id { get; set; }
+        public int DoctorId { get; set; }
         public string Doctor { get; set; }
         public string DoctorName { get; set; }
         public string DoctorProf { get; set; }
@@ -30,6 +33,7 @@ namespace Data
                 var join = doctor?.Join(obstegenyas, x => x.Id, y => y.Id, (b, a) => new
                 {
                     Id = a.Id,
+                    Doctorid=b.Id,
                     Doctor = b.FirstName,
                     DoctorName = b.LastName,
                     DoctorProf = b.Posada,
@@ -42,6 +46,7 @@ namespace Data
                 dbObstegenyaModel = join?.Join(patient, x => x.Id, y => y.Id, (b, a) => new DbObstegenyaModel()
                 {
                     Id = a.Id,
+                    DoctorId = b.Doctorid,
                     Doctor = b.Doctor,
                     DoctorName = b.DoctorName,
                     DoctorProf = b.DoctorProf,
@@ -54,6 +59,8 @@ namespace Data
             }
             return dbObstegenyaModel;
         }
+
+        
 
         public void InsertData(DbObstegenyaModel data)
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows.Input;
 using Data;
 
@@ -8,29 +9,24 @@ namespace HospitalProject.ViewModel
 {
     public class AddObstegenyaViewModel : BaseViewModel
     {
-        private DbPatientModel dbPatientModel = new DbPatientModel();
-        private DbDoctorModel dbDoctorModel = new DbDoctorModel();
+        private List<DbDoctorModel> doctor;
         private List<string> chooseDoctor;
         private List<string> choosePatient;
-        private string doctor;
-        private string patient;
         private string check;
         private int docId;
         private int patId;
         private DateTime date = DateTime.Now;
-        private DateTime timeTo = DateTime.Now;
-        private DateTime timeWith = DateTime.Now;
+        private TimeSpan timeWith = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+        private TimeSpan timeTo = new TimeSpan(DateTime.Now.AddMinutes(10).Hour, DateTime.Now.AddMinutes(10).Minute,
+                                         DateTime.Now.AddMinutes(10).Second);
 
         public AddObstegenyaViewModel()
         {
-
-            ChooseDoctor = dbDoctorModel.GetData().Select(s => s.FirstName.TrimEnd() + " " + s.LastName.TrimEnd() + " " + s.Posada.TrimEnd()).ToList<string>();
-            ChoosePatient = dbPatientModel.GetData().Select(s => s.FirstName.TrimEnd() + " " + s.LastName.TrimEnd() + " " + s.DateBirth.ToShortDateString()
-                                                    .TrimEnd()).ToList<string>();
             DocId = 0;
             PatId = 0;
-
         }
+        #region            Command
+
         private ICommand _clickCommand;
         public ICommand ClickCommand
         {
@@ -38,20 +34,13 @@ namespace HospitalProject.ViewModel
             {
                 return _clickCommand ?? (_clickCommand = new CommandHandler(() =>
                 {
-                    CheckAndAdd();
+                    Check = CheckAndAdd().ToString();
                 }, _canExecute)); ;
             }
         }
+        #endregion
 
-        private void CheckAndAdd()
-        {
-
-            Check = $"doc={DocId} pat={PatId} data={Date} timewith={TimeWith} timeto={TimeTo} ";
-            AddObstegenia addObstegenyaView = new AddObstegenia();
-
-            addObstegenyaView.Show();
-        }
-
+        #region Property
         public string Check
         {
             get { return check; }
@@ -82,41 +71,27 @@ namespace HospitalProject.ViewModel
         }
         public List<string> ChooseDoctor
         {
-            get { return chooseDoctor; }
-            set
+            get
             {
-                chooseDoctor = value;
-                OnPropertyChanged("ChooseDoctor");
+                if (chooseDoctor == null)
+                {
+                    doctor = new DbDoctorModel().GetData();
+                    chooseDoctor = doctor.Select(s => s.FirstName.TrimEnd()
+                                                      + " " + s.LastName.TrimEnd() + " " + s.Posada.TrimEnd())
+                        .ToList<string>();
+                }
+                return chooseDoctor;
             }
         }
 
         public List<string> ChoosePatient
         {
-            get { return choosePatient; }
-            set
+            get
             {
-                choosePatient = value;
-                OnPropertyChanged("ChoosePatient");
-            }
-        }
-
-        public string Patient
-        {
-            get { return patient; }
-            set
-            {
-                patient = value;
-                OnPropertyChanged("Patient");
-            }
-        }
-
-        public string Doctor
-        {
-            get { return doctor; }
-            set
-            {
-                doctor = value;
-                OnPropertyChanged("Doctor");
+                if (choosePatient == null)
+                    choosePatient = new DbPatientModel().GetData().Select(s => s.FirstName.TrimEnd() + " " + s.LastName.TrimEnd() +
+                                    " " + s.DateBirth.ToShortDateString().TrimEnd()).ToList<string>();
+                return choosePatient;
             }
         }
 
@@ -132,48 +107,73 @@ namespace HospitalProject.ViewModel
                 }
                 catch (Exception)
                 {
-                    date = date;
-                    OnPropertyChanged("Date");
-                }
 
+                }
 
             }
         }
         public string TimeTo
         {
-            get { return timeTo.ToShortTimeString(); }
+            get { return timeTo.ToString(); }
             set
             {
                 try
                 {
-                    timeTo = DateTime.Parse(value);
+                    if (timeWith < TimeSpan.Parse(value))
+                        timeTo = TimeSpan.Parse(value);
                     OnPropertyChanged("TimeTo");
                 }
                 catch (Exception)
                 {
-                    timeTo = timeTo;
-                    OnPropertyChanged("TimeTo");
 
                 }
             }
         }
         public string TimeWith
         {
-            get { return timeWith.ToShortTimeString(); }
+            get { return timeWith.ToString(); }
             set
             {
                 try
                 {
-                    timeWith = DateTime.Parse(value);
+
+                    if (timeTo > TimeSpan.Parse(value))
+                        timeWith = TimeSpan.Parse(value);
                     OnPropertyChanged("TimeWith");
                 }
                 catch (Exception)
                 {
-                    timeWith = timeWith;
-                    OnPropertyChanged("TimeWith");
+
                 }
 
             }
+        }
+        #endregion
+        private bool CheckAndAdd()
+        {
+            int doctorId = doctor.ElementAt(DocId).Id;
+            var time =
+                MainWindowViewModel.dbObstegenyaModel.Where(s => s.DoctorId == doctorId && s.Date.Hour == date.Hour && s.Date.Minute == date.Minute)
+                    .Select(s => new { with = s.TimeWith, to = s.TimeTo }).ToList();
+            if (time.Count < 1)
+            {
+                return true;
+            }
+            foreach (var t in time)
+            {
+                if (t.with < timeWith && t.to > timeWith &&
+                    t.with < timeTo && t.to > timeTo)
+                    return false;
+
+                if (t.with > timeWith && t.to > timeWith &&
+                  t.with < timeTo && t.to > timeTo)
+                    return false;
+
+                if (t.with < timeWith && t.to > timeWith &&
+                  t.with < timeTo && t.to < timeTo)
+                    return false;
+            }
+            return true;
         }
     }
 }

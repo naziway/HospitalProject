@@ -7,18 +7,20 @@
         mc:Ignorable="d"
         Title="Нове Обстеження" Height="400" Width="300">
     <Grid>
-        <Label x:Name="label" Content="Лікар" HorizontalAlignment="Left" Margin="21,16,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" Width="78"/>
-        <Label x:Name="label2" Content="Пацієнт" HorizontalAlignment="Left" Margin="21,51,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" Width="78"/>
-        <ComboBox ItemsSource="{Binding ChooseDoctor}" SelectedIndex="{Binding DocId}" x:Name="comboBox" HorizontalAlignment="Left" Margin="104,18,0,0" VerticalAlignment="Top" Width="160" FontFamily="Times New Roman" Height="25"/>
-        <ComboBox ItemsSource="{Binding ChoosePatient}" SelectedIndex="{Binding PatId}" x:Name="comboBox_Copy" HorizontalAlignment="Left" Margin="104,53,0,0" VerticalAlignment="Top" Width="160" FontFamily="Times New Roman" Height="25"/>
-        <Label x:Name="label2_Copy" Content="Дата " HorizontalAlignment="Left" Margin="21,90,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" Width="83"/>
-        <Label x:Name="label2_Copy1" Content="Час З" HorizontalAlignment="Left" Margin="21,132,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" Width="83"/>
-        <Label x:Name="label2_Copy2" Content="Час До" HorizontalAlignment="Left" Margin="21,168,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" Width="83"/>
-        <Button Command="{Binding ClickCommand}" x:Name="button" Content="Додати Обстеження" HorizontalAlignment="Left" Height="34" Margin="104,214,0,0" VerticalAlignment="Top" Width="160" FontSize="15" FontFamily="Times New Roman"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="104,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Text="{Binding Date}" />
-        <TextBox x:Name="textBox_Copy" HorizontalAlignment="Left" Height="23" Margin="104,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Text="{Binding TimeWith}"/>
-        <TextBox x:Name="textBox_Copy1" HorizontalAlignment="Left" Height="23" Margin="104,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Text="{Binding TimeTo}"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="88" Margin="14,259,0,0" TextWrapping="Wrap" Text="{Binding Check}" VerticalAlignment="Top" Width="259"/>
+        <Label x:Name="label" Content="Лікар" HorizontalAlignment="Left" Margin="18,16,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" Width="78"/>
+        <Label x:Name="label2" Content="Пацієнт" HorizontalAlignment="Left" Margin="18,51,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" Width="78"/>
+        <ComboBox ItemsSource="{Binding ChooseDoctor ,IsAsync=True}"  SelectedIndex="{Binding DocId}" x:Name="comboBox" HorizontalAlignment="Left" Margin="102,18,0,0" VerticalAlignment="Top" Width="160" FontFamily="Times New Roman" Height="25"/>
+        <ComboBox ItemsSource="{Binding ChoosePatient ,IsAsync=True}" SelectedIndex="{Binding PatId}" x:Name="comboBox_Copy" HorizontalAlignment="Left" Margin="102,53,0,0" VerticalAlignment="Top" Width="160" FontFamily="Times New Roman" Height="25"/>
+        <Label x:Name="label2_Copy" Content="Дата " HorizontalAlignment="Left" Margin="18,90,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" Width="84"/>
+        <Label x:Name="label2_Copy1" Content="Час З" HorizontalAlignment="Left" Margin="18,132,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" Width="84"/>
+        <Label x:Name="label2_Copy2" Content="Час До" HorizontalAlignment="Left" Margin="18,168,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" Width="84"/>
+        <Button Command="{Binding ClickCommand,IsAsync=True}" x:Name="button" Content="Додати Обстеження" HorizontalAlignment="Left" Height="34" Margin="102,214,0,0" VerticalAlignment="Top" Width="160" FontSize="15" FontFamily="Times New Roman"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="102,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Text="{Binding Date}" />
+        <TextBox x:Name="textBox_Copy" HorizontalAlignment="Left" Height="23" Margin="102,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Text="{Binding TimeWith}"/>
+        <TextBox x:Name="textBox_Copy1" HorizontalAlignment="Left" Height="23" Margin="102,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Text="{Binding TimeTo}"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="88" Margin="12,259,0,0" TextWrapping="Wrap" Text="{Binding Check}" VerticalAlignment="Top" Width="258"/>
+        <Button x:Name="button1" Content="+" HorizontalAlignment="Left" Height="25" Margin="266,18,0,0" VerticalAlignment="Top" Width="18" FontSize="15" FontFamily="Times New Roman"/>
+        <Button x:Name="button1_Copy" Content="+" HorizontalAlignment="Left" Height="25" Margin="266,53,0,0" VerticalAlignment="Top" Width="18" FontSize="15" FontFamily="Times New Roman"/>
 
     </Grid>
 </Window>

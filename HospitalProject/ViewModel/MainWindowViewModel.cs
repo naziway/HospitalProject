@@ -17,11 +17,11 @@ namespace HospitalProject.ViewModel
     }
     public class MainWindowViewModel : BaseViewModel
     {
-        private DbObstegenyaModel dbObstegenyaModel;
+        public static  List<DbObstegenyaModel> dbObstegenyaModel = null;
 
         private Sourting sortSource;
 
-        private List<DbObstegenyaModel> data;
+        private List<DbObstegenyaModel> data = null;
 
         private string request;
 
@@ -34,48 +34,45 @@ namespace HospitalProject.ViewModel
                 OnPropertyChanged("sortSource");
             }
         }
-
         public string Request
         {
             get { return request; }
             set
             {
-                if (value != request&& value!="")
+                if (value != request && value != "")
                 {
                     request = value;
                     OnPropertyChanged("Request");
                     Find();
                 }
-
             }
         }
-
-        private void Find()
-        {
-            Data = dbObstegenyaModel.GetData().Where(s => s.Doctor.Contains(Request)).ToList<DbObstegenyaModel>();
-
-
-        }
-
         public List<DbObstegenyaModel> Data
         {
-            get { return data; }
+            get
+            {
+                if (data == null)
+                {
+                    dbObstegenyaModel = new DbObstegenyaModel().GetData();;
+                    data = dbObstegenyaModel;
+                }
+                return data;
+            }
             set
             {
                 data = value;
                 OnPropertyChanged("Data");
             }
         }
-
-
         public MainWindowViewModel()
         {
-            dbObstegenyaModel = new DbObstegenyaModel();
-            Data = dbObstegenyaModel.GetData();
+
 
         }
-
-
+        private void Find()
+        {
+            Data = dbObstegenyaModel.Where(s => s.Doctor.Contains(Request)).ToList<DbObstegenyaModel>();
+        }
 
     }
 
