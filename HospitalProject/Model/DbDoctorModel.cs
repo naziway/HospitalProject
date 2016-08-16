@@ -5,6 +5,7 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
+using HospitalProject.NLogger;
 
 namespace Data
 {
@@ -24,9 +25,18 @@ namespace Data
 
             using (HospitalEntities dbData = new HospitalEntities())
             {
-                dbDoctors = dbData.Doctors.Select(
+                try
+                {
+                    dbDoctors = dbData.Doctors.Select(
                       s => new DbDoctorModel() { Id = s.Id, FirstName = s.FirstName, LastName = s.LastName, Posada = s.Posada })
                       .ToList<DbDoctorModel>();
+                }
+                catch (Exception e)
+                {
+                    Logining.logger.Trace($"Завантажити данні Лікарів не вдалося Exception:{e.Message}");
+                    return dbDoctors;
+                }
+                
             }
             return dbDoctors;
         }
@@ -47,8 +57,9 @@ namespace Data
                     dbData.SaveChanges();
                     return true;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Logining.logger.Trace($"Додати нового лікаря не вдалося Exception:{e.Message}");
                     return false;
                 }
             }
@@ -68,8 +79,10 @@ namespace Data
                     dbData.SaveChanges();
                     return true;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Logining.logger.Trace($"Обновити данні Лікаря не вдалося Exception:{e.Message}");
+
                     return false;
                 }
             }
@@ -88,8 +101,9 @@ namespace Data
                         dbData.SaveChanges();
                         return true;
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
+                        Logining.logger.Trace($"Видалити Лікаря не вдалося Exception:{e.Message}");
                         return false;
                     }
             }

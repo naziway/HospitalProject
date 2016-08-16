@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using Data;
+using HospitalProject.NLogger;
 using HospitalProject.View;
 
 namespace HospitalProject.ViewModel
@@ -26,7 +27,11 @@ namespace HospitalProject.ViewModel
             get
             {
                 if (doctorList == null)
+                {
+
                     doctorList = new DbDoctorModel().GetData();
+                    Logining.logger.Info("Данні Таблиці Доктор завантажено!!!");
+                }
                 return doctorList;
             }
         }
@@ -57,14 +62,23 @@ namespace HospitalProject.ViewModel
                     if (selectedIndex == null)
                     {
                         MessageBox.Show("Невибрано лікаря!!!");
+                        Logining.logger.Info("Невибрано лікаря!!!");
                         return;
                     }
                     DbDoctorModel deleteDoc = DoctorList.ElementAt(SelectedIndex ?? + 1);
 
                     if (new DbDoctorModel().DeleteData(deleteDoc))
-                        MessageBox.Show("Видалено лікаря!!!");
+                    {
+                         MessageBox.Show("Видалено лікаря!!!");
+                        Logining.logger.Info("Видалено лікаря!!!");
+                    }
+                       
                     else
+                    {
                         MessageBox.Show("Помилка");
+                        Logining.logger.Info("Помилка видалення лікаря");
+                    }
+                        
 
                 }, _canExecute)); ;
             }

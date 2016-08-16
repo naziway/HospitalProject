@@ -20,9 +20,9 @@ namespace HospitalProject.ViewModel
         private List<DbObstegenyaModel> data = null;
 
         private string request;
+
         public MainWindowViewModel()
         {
-
 
         }
 
@@ -53,13 +53,7 @@ namespace HospitalProject.ViewModel
                 {
                     dbObstegenyaModel = new DbObstegenyaModel().GetData(); ;
                     data = dbObstegenyaModel;
-                    Logining.logger.Trace("Данні обстеження загрузилися");
-                    Logining.logger.Debug("logger.Debug");
-                    Logining.logger.Info("logger.Info");
-                    Logining.logger.Warn("logger.Warn");
-                    Logining.logger.Error("logger.Error");
-                    Logining.logger.Fatal("logger.Fatal");
-                    Thread.Sleep(1000);
+                    Logining.logger.Trace("Данні обстеження загрузилися з бази");
                 }
                 return data;
             }
@@ -109,6 +103,7 @@ namespace HospitalProject.ViewModel
                     break;
             }
             OnPropertyChanged("Data");
+            Logining.logger.Info("Відбувся пошук");
         }
         #endregion
     }

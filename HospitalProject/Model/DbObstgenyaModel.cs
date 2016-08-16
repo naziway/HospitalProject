@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading;
+using HospitalProject.NLogger;
 
 namespace Data
 {
@@ -28,38 +29,49 @@ namespace Data
 
             using (HospitalEntities dbData = new HospitalEntities())
             {
-                var obstegenyas = dbData.Obstegenyas?.ToList<Obstegenya>();
-                var patient = dbData.Patients?.ToList<Patient>();
-                var doctor = dbData.Doctors?.ToList<Doctor>();
-
-                var join = obstegenyas?.Join(doctor, x => x.DoctorId, y => y.Id, (b, a) => new
+                try
                 {
-                    Id = b.Id,
-                    Doctorid = b.DoctorId,
-                    Patientid = b.PatientId,
-                    Doctor = a.FirstName,
-                    DoctorName = a.LastName,
-                    DoctorProf = a.Posada,
-                    Patient = b.PatientId,
-                    Date = b.Date,
-                    TimeWith = b.TimeWith,
-                    TimeTo = b.TimeTo
-                }).ToList();
+                    var obstegenyas = dbData.Obstegenyas.ToList<Obstegenya>();
+                    var patient = dbData.Patients.ToList<Patient>();
+                    var doctor = dbData.Doctors.ToList<Doctor>();
 
-                dbObstegenyaModel = join?.Join(patient, x => x.Patientid, y => y.Id, (b, a) => new DbObstegenyaModel()
+
+                    var join = obstegenyas.Join(doctor, x => x.DoctorId, y => y.Id, (b, a) => new
+                    {
+                        Id = b.Id,
+                        Doctorid = b.DoctorId,
+                        Patientid = b.PatientId,
+                        Doctor = a.FirstName,
+                        DoctorName = a.LastName,
+                        DoctorProf = a.Posada,
+                        Patient = b.PatientId,
+                        Date = b.Date,
+                        TimeWith = b.TimeWith,
+                        TimeTo = b.TimeTo
+                    }).ToList();
+
+                    dbObstegenyaModel =
+                        join.Join(patient, x => x.Patientid, y => y.Id, (b, a) => new DbObstegenyaModel()
+                        {
+                            Id = b.Id,
+                            DoctorId = b.Doctorid,
+                            PatientId = b.Patientid,
+                            Doctor = b.Doctor,
+                            DoctorName = b.DoctorName,
+                            DoctorProf = b.DoctorProf,
+                            Patient = a.FirstName,
+                            PatientName = a.LastName,
+                            Date = b.Date,
+                            TimeWith = b.TimeWith,
+                            TimeTo = b.TimeTo
+                        }).ToList<DbObstegenyaModel>();
+                }
+                catch (Exception e)
                 {
-                    Id = b.Id,
-                    DoctorId = b.Doctorid,
-                    PatientId = b.Patientid,
-                    Doctor = b.Doctor,
-                    DoctorName = b.DoctorName,
-                    DoctorProf = b.DoctorProf,
-                    Patient = a.FirstName,
-                    PatientName = a.LastName,
-                    Date = b.Date,
-                    TimeWith = b.TimeWith,
-                    TimeTo = b.TimeTo
-                }).ToList<DbObstegenyaModel>();
+                    Logining.logger.Trace($"Завантажити данні обстежень не вдалося Exception:{e.Message}");
+                    return dbObstegenyaModel;
+                }
+
             }
             return dbObstegenyaModel;
         }
@@ -77,15 +89,15 @@ namespace Data
             obs.TimeTo = data.TimeTo;
             using (HospitalEntities dbData = new HospitalEntities())
             {
-
                 try
                 {
                     dbData.Obstegenyas.Add(obs);
                     dbData.SaveChanges();
                     return true;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Logining.logger.Trace($"Додати данні обстежень не вдалося Exception:{e.Message}");
                     return false;
                 }
             }
