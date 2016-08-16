@@ -7,11 +7,8 @@
         mc:Ignorable="d"
         Title="Наша Лікарня" Height="700" Width="1000">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
         <Label x:Name="label" Content="Обстеження" Height="52" Margin="153,-15,150,0" Width="239" FontSize="35" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+
         <DataGrid   x:Name="dataGrid" HorizontalAlignment="Center" Margin="10,76,10,0" VerticalAlignment="Top" Height="552" Width="972" ItemsSource="{Binding Data, IsAsync=True}">
             <DataGrid.Style>
                 <Style TargetType="{x:Type DataGrid}">
@@ -23,20 +20,24 @@
                 </Style>
             </DataGrid.Style>
         </DataGrid>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="29" Margin="348,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" FontSize="18" Text="{Binding Request}"/>
-        <Label x:Name="label_Copy" Content="Пошук" Height="52" Margin="187,28,684,0" Width="121" FontSize="35" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-        <ComboBox x:Name="comboBox"  HorizontalAlignment="Left" Margin="38,42,0,0" VerticalAlignment="Top" Width="144" Height="29" FontSize="18">
-            <ComboBoxItem Name="cbi1" IsSelected="True">По всьому</ComboBoxItem>
+
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="29" Margin="312,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" FontSize="18" Text="{Binding Request}"/>
+
+
+        <Label x:Name="label_Copy" Content="Пошук" Height="52" Margin="24,19,847,0" Width="121" FontSize="35" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+        <ComboBox x:Name="comboBox" SelectedIndex="{Binding SortSource}"  HorizontalAlignment="Left" Margin="145,39,0,0" VerticalAlignment="Top" Width="144" Height="29" FontSize="18">
+            <ComboBoxItem Name="cbi1">По всьому</ComboBoxItem>
             <ComboBoxItem Name="cbi2">Імені Пацієнта</ComboBoxItem>
             <ComboBoxItem Name="cbi3">Прізвищі Пацієнта</ComboBoxItem>
             <ComboBoxItem Name="cbi4">Імені Лікаря</ComboBoxItem>
             <ComboBoxItem Name="cbi5">Прізвищі Лікаря</ComboBoxItem>
         </ComboBox>
-        <Button  x:Name="button" Command="{Binding ClickCommand}" Content="Додати" HorizontalAlignment="Left" Margin="896,20,0,0" VerticalAlignment="Top" Width="75" FontSize="15" FontFamily="Times New Roman" Click="button_Click"/>
-   
-    
+        <Button  x:Name="button" Command="{Binding ClickCommand}" Content="Додати" HorizontalAlignment="Left" Margin="898,10,0,0" VerticalAlignment="Top" Width="75" FontSize="15" FontFamily="Times New Roman" Click="button_Click"/>
+        <Button x:Name="button_Copy1" Command="{Binding Find}" Content="Знайти" HorizontalAlignment="Left" Height="29" Margin="622,39,0,0" VerticalAlignment="Top" Width="164" FontSize="18" FontFamily="Times New Roman"/>
+
+
     </Grid>
-    
+
 </Window>
 
 

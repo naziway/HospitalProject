@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Windows.Input;
 using Data;
 using HospitalProject.Model;
 using HospitalProject.NLogger;
@@ -7,23 +10,29 @@ using HospitalProject.NLogger;
 
 namespace HospitalProject.ViewModel
 {
-   
+
     public class MainWindowViewModel : BaseViewModel
     {
-        public static  List<DbObstegenyaModel> dbObstegenyaModel = null;
+        public static List<DbObstegenyaModel> dbObstegenyaModel = null;
 
         private Sourting sortSource;
-        
+
         private List<DbObstegenyaModel> data = null;
 
         private string request;
-
-        public Sourting SortSource
+        public MainWindowViewModel()
         {
-            get { return sortSource; }
+
+
+        }
+
+        #region Property
+        public int SortSource
+        {
+            get { return (int)sortSource; }
             set
             {
-                sortSource = value;
+                sortSource =(Sourting)value;
                 OnPropertyChanged("sortSource");
             }
         }
@@ -32,21 +41,17 @@ namespace HospitalProject.ViewModel
             get { return request; }
             set
             {
-                if (value != request && value != "")
-                {
                     request = value;
                     OnPropertyChanged("Request");
-                    Find();
-                }
             }
         }
         public List<DbObstegenyaModel> Data
         {
             get
             {
-                if (data == null)
+                if (dbObstegenyaModel == null)
                 {
-                    dbObstegenyaModel = new DbObstegenyaModel().GetData();;
+                    dbObstegenyaModel = new DbObstegenyaModel().GetData(); ;
                     data = dbObstegenyaModel;
                     Logining.logger.Trace("Данні обстеження загрузилися");
                     Logining.logger.Debug("logger.Debug");
@@ -54,6 +59,7 @@ namespace HospitalProject.ViewModel
                     Logining.logger.Warn("logger.Warn");
                     Logining.logger.Error("logger.Error");
                     Logining.logger.Fatal("logger.Fatal");
+                    Thread.Sleep(1000);
                 }
                 return data;
             }
@@ -63,16 +69,48 @@ namespace HospitalProject.ViewModel
                 OnPropertyChanged("Data");
             }
         }
-        public MainWindowViewModel()
+
+        #endregion
+
+        #region Command
+        private ICommand find;
+        public ICommand Find => find ?? (find = new CommandHandler(FindObj, _canExecute));
+        #endregion
+
+        #region Logic
+        private void FindObj()
         {
+            data = null;
 
+            string request = Request?.ToLower() ?? "";
+            OnPropertyChanged("Data");
+            switch (sortSource)
+            {
+                case Sourting.all:
 
+                    data = dbObstegenyaModel.Where(s => s.Doctor.ToLower().Contains(request)
+                                                    || s.Date.ToShortDateString().ToLower().Contains(request)
+                                                    || s.DoctorName.ToLower().Contains(request)
+                                                    || s.DoctorProf.ToLower().Contains(request)
+                                                    || s.Patient.ToLower().Contains(request)
+                                                    || s.PatientName.ToLower().Contains(request)).ToList<DbObstegenyaModel>();
+                    break;
+                case Sourting.namePatient:
+                    data = dbObstegenyaModel.Where(s => s.PatientName.ToLower().Contains(request)).ToList<DbObstegenyaModel>();
+                    break;
+                case Sourting.firstNamePatient:
+                    data = dbObstegenyaModel.Where(s => s.Patient.ToLower().Contains(request)).ToList<DbObstegenyaModel>();
+                    break;
+                case Sourting.firstNameDoctor:
+                    data = dbObstegenyaModel.Where(s => s.DoctorName.ToLower().Contains(request)).ToList<DbObstegenyaModel>();
+                    break;
+                case Sourting.nameDoctor:
+                    data = dbObstegenyaModel.Where(s => s.Doctor.ToLower().Contains(request)).ToList<DbObstegenyaModel>();
+                    break;
+            }
+            OnPropertyChanged("Data");
         }
-        private void Find()
-        {
-            Data = dbObstegenyaModel.Where(s => s.Doctor.Contains(Request)).ToList<DbObstegenyaModel>();
-        }
-
+        #endregion
     }
 
 }

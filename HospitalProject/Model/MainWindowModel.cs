@@ -7,7 +7,7 @@ namespace HospitalProject.Model
         namePatient,
         firstNamePatient,
         nameDoctor,
-        farstNameDoctor,
+        firstNameDoctor,
 
     }
     public class MainWindowModel
