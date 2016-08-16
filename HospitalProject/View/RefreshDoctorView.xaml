@@ -1,0 +1,19 @@
+﻿<Window x:Class="HospitalProject.View.RefreshDoctorView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HospitalProject.View"
+        mc:Ignorable="d"
+        Title="Оновити данні про лікаря" Height="300" Width="300">
+    <Grid>
+        <Label x:Name="label2_Copy" Content="Прізвище" HorizontalAlignment="Left" Margin="22,32,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" Width="84"/>
+        <Label x:Name="label2_Copy1" Content="Ім'я" HorizontalAlignment="Left" Margin="22,72,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" Width="84"/>
+        <Label x:Name="label2_Copy2" Content="Професія" HorizontalAlignment="Left" Margin="22,111,0,0" VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="15" Width="84"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="106,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Text="{Binding FirstName}" />
+        <TextBox x:Name="textBox_Copy" HorizontalAlignment="Left" Height="23" Margin="106,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Text="{Binding LastName}" />
+        <TextBox x:Name="textBox_Copy1" HorizontalAlignment="Left" Height="23" Margin="106,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Text="{Binding Posada}" />
+        <Button  x:Name="button" Command="{Binding RefreshCommand, IsAsync=True}" Content="Оновити дані" HorizontalAlignment="Left" Height="34" Margin="106,163,0,0" VerticalAlignment="Top" Width="160" FontSize="15" FontFamily="Times New Roman" />
+
+    </Grid>
+</Window>

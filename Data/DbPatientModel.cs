@@ -57,6 +57,7 @@ namespace Data
 
             using (HospitalEntities dbData = new HospitalEntities())
             {
+                if(!dbData.Obstegenyas.Any(x => x.PatientId == patient.Id))
                 try
                 {
                     dbData.Entry(patient).State = EntityState.Deleted;
@@ -68,6 +69,7 @@ namespace Data
                     return false;
                 }
             }
+            return false;
         }
 
         public bool DeleteData(DbPatientModel data)

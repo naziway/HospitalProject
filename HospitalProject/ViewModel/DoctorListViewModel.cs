@@ -21,22 +21,17 @@ namespace HospitalProject.ViewModel
                 OnPropertyChanged("SelectedIndex");
             }
         }
-
         public List<DbDoctorModel> DoctorList
         {
             get
             {
                 if (doctorList == null)
                     doctorList = new DbDoctorModel().GetData();
-
                 return doctorList;
             }
-
         }
 
-
         #region Command
-
 
         private ICommand addDoctor;
         public ICommand AddDoctor
@@ -45,7 +40,6 @@ namespace HospitalProject.ViewModel
             {
                 return addDoctor ?? (addDoctor = new CommandHandler(() =>
                 {
-
                     AddDoctorView addPatientView = new AddDoctorView();
                     addPatientView.ShowDialog();
 
@@ -75,7 +69,25 @@ namespace HospitalProject.ViewModel
                 }, _canExecute)); ;
             }
         }
+        private ICommand refreshDoctor;
+        public ICommand RefreshDoctor
+        {
+            get
+            {
+                return refreshDoctor ?? (refreshDoctor = new CommandHandler(() =>
+                {
 
+                    if (selectedIndex == null)
+                    {
+                        MessageBox.Show("Не вибрано лікаря!!!");
+                        return;
+                    }
+                    RefreshDoctorView addPatientView = new RefreshDoctorView(DoctorList.ElementAt(SelectedIndex ?? +1));
+                    addPatientView.ShowDialog();
+
+                }, _canExecute)); ;
+            }
+        }
 
 
 
