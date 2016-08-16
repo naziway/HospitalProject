@@ -23,9 +23,6 @@ namespace HospitalProject.ViewModel
         protected bool _canExecute;
        
     }
-
-
-
     public class CommandHandler : ICommand
     {
         private Action _action;

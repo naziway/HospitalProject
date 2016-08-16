@@ -1,27 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using System.Windows.Documents;
-using System.Windows.Input;
 using Data;
+using HospitalProject.Model;
 using HospitalProject.NLogger;
 
-//using HospitalProject.Model;
 
 namespace HospitalProject.ViewModel
 {
-    public enum Sourting
-    {
-        all,
-        namePat
-    }
+   
     public class MainWindowViewModel : BaseViewModel
     {
         public static  List<DbObstegenyaModel> dbObstegenyaModel = null;
 
         private Sourting sortSource;
-
+        
         private List<DbObstegenyaModel> data = null;
 
         private string request;
@@ -56,7 +48,7 @@ namespace HospitalProject.ViewModel
                 {
                     dbObstegenyaModel = new DbObstegenyaModel().GetData();;
                     data = dbObstegenyaModel;
-                    Logining.logger.Trace("logger.Trace");
+                    Logining.logger.Trace("Данні обстеження загрузилися");
                     Logining.logger.Debug("logger.Debug");
                     Logining.logger.Info("logger.Info");
                     Logining.logger.Warn("logger.Warn");

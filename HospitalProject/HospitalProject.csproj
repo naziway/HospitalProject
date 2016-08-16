@@ -79,16 +79,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Model\DbDoctorModel.cs" />
+    <Compile Include="Model\DbObstgenyaModel.cs" />
+    <Compile Include="Model\DbPatientModel.cs" />
     <Compile Include="Model\MainWindowModel.cs" />
     <Compile Include="NLogger\Logining.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="ViewModel\AddDoctorViewModel.cs" />
-    <Compile Include="ViewModel\AddObstegenyaViewModel.cs" />
-    <Compile Include="ViewModel\AddPatientViewModel.cs" />
+    <Compile Include="ViewModel\AddClass\AddDoctorViewModel.cs" />
+    <Compile Include="ViewModel\AddClass\AddObstegenyaViewModel.cs" />
+    <Compile Include="ViewModel\AddClass\AddPatientViewModel.cs" />
     <Compile Include="ViewModel\DoctorListViewModel.cs" />
     <Compile Include="ViewModel\PatientListViewModel.cs" />
-    <Compile Include="ViewModel\RefreshDoctorViewModel.cs" />
-    <Compile Include="ViewModel\RefreshPatientViewModel.cs" />
+    <Compile Include="ViewModel\RefreshClass\RefreshDoctorViewModel.cs" />
+    <Compile Include="ViewModel\RefreshClass\RefreshPatientViewModel.cs" />
     <Compile Include="View\AddWondows\AddDoctorView.xaml.cs">
       <DependentUpon>AddDoctorView.xaml</DependentUpon>
     </Compile>
@@ -151,6 +154,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Resources\Templates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\AddWondows\AddDoctorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -196,6 +203,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Burn.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\loading_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
