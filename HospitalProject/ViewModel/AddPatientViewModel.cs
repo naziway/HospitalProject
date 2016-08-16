@@ -90,7 +90,7 @@ namespace HospitalProject.ViewModel
         #endregion
 
         #region Logic
-        private List<string> GetBloodType()
+        public static List<string> GetBloodType()
         {
             List<string> list = new List<string>();
             int i;

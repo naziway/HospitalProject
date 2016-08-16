@@ -149,7 +149,7 @@ namespace HospitalProject.ViewModel
                     date = DateTime.Parse(value);
                     OnPropertyChanged("Date");
                 }
-                catch (Exception)
+                catch 
                 {
 
                 }

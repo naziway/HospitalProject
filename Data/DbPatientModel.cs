@@ -5,7 +5,6 @@ using System.Linq;
 
 namespace Data
 {
-    
     public class DbPatientModel : IDb<DbPatientModel>
     { public int Id { get; set; }
         public string FirstName { get; set; }
@@ -53,14 +52,16 @@ namespace Data
 
         public bool UpdateData(DbPatientModel data)
         {
-            Patient patient = new Patient(){ FirstName = data.FirstName, LastName = LastName, Id = data.Id, BloodType = data.BloodType,DateBirth = data.DateBirth};
-
             using (HospitalEntities dbData = new HospitalEntities())
             {
-                if(!dbData.Obstegenyas.Any(x => x.PatientId == patient.Id))
+                var mod = dbData.Patients.FirstOrDefault(c => c.Id == data.Id);
+                if (mod == null) return false;
                 try
                 {
-                    dbData.Entry(patient).State = EntityState.Deleted;
+                    mod.FirstName = data.FirstName;
+                    mod.LastName = data.LastName;
+                    mod.BloodType = data.BloodType;
+                    mod.DateBirth = data.DateBirth;
                     dbData.SaveChanges();
                     return true;
                 }
@@ -69,12 +70,26 @@ namespace Data
                     return false;
                 }
             }
-            return false;
         }
-
         public bool DeleteData(DbPatientModel data)
         {
-            throw new NotImplementedException();
+            var patient = new Patient() { FirstName = data.FirstName, LastName = LastName, Id = data.Id, BloodType = data.BloodType,DateBirth = data.DateBirth};
+
+            using (HospitalEntities dbData = new HospitalEntities())
+            {
+                if (!dbData.Obstegenyas.Any(x => x.PatientId == patient.Id))
+                    try
+                    {
+                        dbData.Entry(patient).State = EntityState.Deleted;
+                        dbData.SaveChanges();
+                        return true;
+                    }
+                    catch (Exception)
+                    {
+                        return false;
+                    }
+            }
+            return false;
         }
     }
 }

@@ -83,6 +83,7 @@
     <Compile Include="ViewModel\DoctorListViewModel.cs" />
     <Compile Include="ViewModel\PatientListViewModel.cs" />
     <Compile Include="ViewModel\RefreshDoctorViewModel.cs" />
+    <Compile Include="ViewModel\RefreshPatientViewModel.cs" />
     <Compile Include="View\AddWondows\AddDoctorView.xaml.cs">
       <DependentUpon>AddDoctorView.xaml</DependentUpon>
     </Compile>
@@ -105,6 +106,9 @@
     </Compile>
     <Compile Include="View\RefreshWindows\RefreshDoctorView.xaml.cs">
       <DependentUpon>RefreshDoctorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RefreshWindows\RefreshPatientView.xaml.cs">
+      <DependentUpon>RefreshPatientView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +168,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RefreshWindows\RefreshDoctorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RefreshWindows\RefreshPatientView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

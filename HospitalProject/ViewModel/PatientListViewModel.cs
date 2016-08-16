@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using Data;
 using HospitalProject.View;
+using HospitalProject.View.RefreshWindows;
 
 namespace HospitalProject.ViewModel
 {
@@ -51,7 +52,7 @@ namespace HospitalProject.ViewModel
 
                     if (selectedIndex == null)
                     {
-                        MessageBox.Show("Невибрано пацієнта!!!");
+                        MessageBox.Show("Не вибрано пацієнта!!!");
                         return;
                     }
                     DbPatientModel deletePat = PatientList.ElementAt(SelectedIndex ?? +1);/// index?
@@ -74,11 +75,11 @@ namespace HospitalProject.ViewModel
 
                     if (selectedIndex == null)
                     {
-                        MessageBox.Show("Не вибрано лікаря!!!");
+                        MessageBox.Show("Не вибрано пацієнта!!!");
                         return;
                     }
-                  //  RefreshDoctorView addPatientView = new RefreshDoctorView(PatientList.ElementAt(SelectedIndex ?? +1));
-                   // addPatientView.ShowDialog();
+                    RefreshPatientView addPatientView = new RefreshPatientView(PatientList.ElementAt(SelectedIndex ?? +1));
+                    addPatientView.ShowDialog();
 
                 }, _canExecute)); ;
             }
