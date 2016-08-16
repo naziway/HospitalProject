@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Documents;
 using System.Windows.Input;
 using Data;
+using HospitalProject.NLogger;
 
 //using HospitalProject.Model;
 
@@ -55,6 +56,12 @@ namespace HospitalProject.ViewModel
                 {
                     dbObstegenyaModel = new DbObstegenyaModel().GetData();;
                     data = dbObstegenyaModel;
+                    Logining.logger.Trace("logger.Trace");
+                    Logining.logger.Debug("logger.Debug");
+                    Logining.logger.Info("logger.Info");
+                    Logining.logger.Warn("logger.Warn");
+                    Logining.logger.Error("logger.Error");
+                    Logining.logger.Fatal("logger.Fatal");
                 }
                 return data;
             }
