@@ -7,6 +7,7 @@ namespace Data
         List<T> GetData();
         bool InsertData(T data);
         bool UpdateData(T data);
+        bool DeleteData(T data);
 
     }
 }

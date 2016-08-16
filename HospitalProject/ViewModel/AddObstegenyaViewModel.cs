@@ -57,8 +57,8 @@ namespace HospitalProject.ViewModel
             {
                 return _addDoctor ?? (_addDoctor = new CommandHandler(() =>
                 {
-                    AddDoctorView addDoctorView = new AddDoctorView();
-                    addDoctorView.ShowDialog();
+                    DoctorListView doctorListView = new DoctorListView();
+                    doctorListView.ShowDialog();
                 }, _canExecute)); ;
             }
         }

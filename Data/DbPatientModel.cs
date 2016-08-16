@@ -53,7 +53,26 @@ namespace Data
 
         public bool UpdateData(DbPatientModel data)
         {
-            throw new System.NotImplementedException();
+            Patient patient = new Patient(){ FirstName = data.FirstName, LastName = LastName, Id = data.Id, BloodType = data.BloodType,DateBirth = data.DateBirth};
+
+            using (HospitalEntities dbData = new HospitalEntities())
+            {
+                try
+                {
+                    dbData.Entry(patient).State = EntityState.Deleted;
+                    dbData.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool DeleteData(DbPatientModel data)
+        {
+            throw new NotImplementedException();
         }
     }
 }

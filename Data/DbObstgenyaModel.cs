@@ -32,23 +32,23 @@ namespace Data
                 var patient = dbData.Patients?.ToList<Patient>();
                 var doctor = dbData.Doctors?.ToList<Doctor>();
 
-                var join = doctor?.Join(obstegenyas, x => x.Id, y => y.Id, (b, a) => new
+                var join = obstegenyas?.Join(doctor, x => x.DoctorId, y => y.Id, (b, a) => new
                 {
-                    Id = a.Id,
-                    Doctorid = b.Id,
-                    Patientid = a.Id,
-                    Doctor = b.FirstName,
-                    DoctorName = b.LastName,
-                    DoctorProf = b.Posada,
-                    Patient = a.PatientId,
-                    Date = a.Date,
-                    TimeWith = a.TimeWith,
-                    TimeTo = a.TimeTo
+                    Id = b.Id,
+                    Doctorid = b.DoctorId,
+                    Patientid = b.PatientId,
+                    Doctor = a.FirstName,
+                    DoctorName = a.LastName,
+                    DoctorProf = a.Posada,
+                    Patient = b.PatientId,
+                    Date = b.Date,
+                    TimeWith = b.TimeWith,
+                    TimeTo = b.TimeTo
                 }).ToList();
 
-                dbObstegenyaModel = join?.Join(patient, x => x.Id, y => y.Id, (b, a) => new DbObstegenyaModel()
+                dbObstegenyaModel = join?.Join(patient, x => x.Patientid, y => y.Id, (b, a) => new DbObstegenyaModel()
                 {
-                    Id = a.Id,
+                    Id = b.Id,
                     DoctorId = b.Doctorid,
                     PatientId = b.Patientid,
                     Doctor = b.Doctor,
@@ -59,7 +59,7 @@ namespace Data
                     Date = b.Date,
                     TimeWith = b.TimeWith,
                     TimeTo = b.TimeTo
-                })?.ToList<DbObstegenyaModel>();
+                }).ToList<DbObstegenyaModel>();
             }
             return dbObstegenyaModel;
         }
@@ -77,9 +77,10 @@ namespace Data
             obs.TimeTo = data.TimeTo;
             using (HospitalEntities dbData = new HospitalEntities())
             {
-                dbData.Obstegenyas.Add(obs);
+
                 try
                 {
+                    dbData.Obstegenyas.Add(obs);
                     dbData.SaveChanges();
                     return true;
                 }
@@ -94,6 +95,11 @@ namespace Data
         public bool UpdateData(DbObstegenyaModel data)
         {
             throw new System.NotImplementedException();
+        }
+
+        public bool DeleteData(DbObstegenyaModel data)
+        {
+            throw new NotImplementedException();
         }
     }
 }

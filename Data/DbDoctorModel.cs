@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 
 namespace Data
@@ -55,6 +56,25 @@ namespace Data
         public bool UpdateData(DbDoctorModel data)
         {
             throw new System.NotImplementedException();
+        }
+
+        public bool DeleteData(DbDoctorModel data)
+        {
+            var doctor = new Doctor() {FirstName = data.FirstName, LastName = LastName, Id = data.Id, Posada = data.Posada};
+
+            using (HospitalEntities dbData = new HospitalEntities())
+            {
+                try
+                {
+                    dbData.Entry(doctor).State = EntityState.Deleted;
+                    dbData.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
         }
     }
 }
