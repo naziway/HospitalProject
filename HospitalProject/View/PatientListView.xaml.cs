@@ -16,14 +16,14 @@ using HospitalProject.ViewModel;
 namespace HospitalProject.View
 {
     /// <summary>
-    /// Interaction logic for AddPatientView.xaml
+    /// Interaction logic for PatientListView.xaml
     /// </summary>
-    public partial class AddPatientView : Window
+    public partial class PatientListView : Window
     {
-        public AddPatientView()
+        public PatientListView()
         {
             InitializeComponent();
-            DataContext = new AddPatientViewModel();
+            DataContext = new PatientListViewModel();
         }
     }
 }

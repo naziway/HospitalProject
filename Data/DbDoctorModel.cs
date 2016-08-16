@@ -62,7 +62,6 @@ namespace Data
                 if (mod == null) return false;
                 try
                 {
-
                     mod.FirstName = data.FirstName;
                     mod.LastName = data.LastName;
                     mod.Posada = data.Posada;

@@ -1,19 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Data;
 
 namespace HospitalProject.ViewModel
 {
-    class AddPatientViewModel:BaseViewModel
+    class AddPatientViewModel : BaseViewModel
     {
 
         private string firstName;
         private string lastName;
-        private string prof;
+        private List<string> bloodType;
+        private DateTime date = DateTime.Today;
+        private int selectedBlood = 0;
+
+        #region Property
+        public int SelectedBlood
+        {
+            get { return selectedBlood; }
+            set
+            {
+                OnPropertyChanged("SelectedBlood");
+                selectedBlood = value;
+            }
+        }
+
+        public List<string> BloodType
+        {
+            get
+            {
+                if (bloodType == null)
+                    bloodType = GetBloodType();
+                return bloodType;
+            }
+        }
+
+        public string DataBirth
+        {
+            get { return date.ToShortDateString(); }
+            set
+            {
+                try
+                {
+                    date = DateTime.Parse(value);
+                    OnPropertyChanged("DataBirth");
+                }
+                catch
+                {
+                }
+            }
+        }
 
         public string FirstName
         {
@@ -34,30 +75,54 @@ namespace HospitalProject.ViewModel
                 OnPropertyChanged("LastName");
             }
         }
-
-        public string Prof
-        {
-            get { return prof; }
-            set
-            {
-                prof = value;
-                OnPropertyChanged("Prof");
-            }
-        }
+        #endregion
 
         #region            Command
 
-        private ICommand _clickCommand;
-        public ICommand AddCommand
+        private ICommand addPatient;
+        public ICommand AddPatient
         {
             get
             {
-                return _clickCommand ?? (_clickCommand = new CommandHandler(() =>
+                return addPatient ?? (addPatient = new CommandHandler(check, _canExecute)); ;
+            }
+        }
+        #endregion
+
+        #region Logic
+        private List<string> GetBloodType()
+        {
+            List<string> list = new List<string>();
+            int i;
+            for (i = 1; i <= 4; i++)
+            {
+                list.Add(i.ToString() + "+");
+                list.Add(i.ToString() + "-");
+            }
+            return list;
+        }
+        private void check()
+        {
+            if (FirstName == null || LastName == null)
+                MessageBox.Show("Незаповнені поля");
+            else
+            {
+                if (new DbPatientModel().InsertData(new DbPatientModel()
                 {
+                    FirstName = FirstName,
+                    LastName = LastName,
+                    DateBirth = date,
+                    BloodType = GetBloodType().ElementAt(selectedBlood)
 
-                    MessageBox.Show("Good");
+                }))
+                {
+                    MessageBox.Show("Данні успішно додані");
+                }
+                else
+                {
+                    MessageBox.Show("Данні не додані");
+                }
 
-                }, _canExecute)); ;
             }
         }
         #endregion

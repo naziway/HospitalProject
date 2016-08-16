@@ -69,9 +69,8 @@ namespace HospitalProject.ViewModel
             {
                 return _addPatient ?? (_addPatient = new CommandHandler(() =>
                 {
-
-                    AddPatientView addPatientView = new AddPatientView();
-                    addPatientView.ShowDialog();
+                    PatientListView patientListView = new PatientListView();
+                    patientListView.ShowDialog();
 
                 }, _canExecute)); ;
             }
@@ -154,7 +153,6 @@ namespace HospitalProject.ViewModel
                 {
 
                 }
-
             }
         }
         public string TimeTo

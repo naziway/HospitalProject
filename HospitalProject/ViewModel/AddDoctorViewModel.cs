@@ -43,17 +43,8 @@ namespace HospitalProject.ViewModel
 
         #region            Command
 
-        private ICommand _addCommand;
-        public ICommand AddCommand
-        {
-            get
-            {
-                return _addCommand ?? (_addCommand = new CommandHandler(() =>
-                {
-                    CheckFilld();
-                }, _canExecute)); ;
-            }
-        }
+        private ICommand addCommand;
+        public ICommand AddCommand => addCommand ?? (addCommand = new CommandHandler(CheckFilld, _canExecute));
 
         private void CheckFilld()
         {

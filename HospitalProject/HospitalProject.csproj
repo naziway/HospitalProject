@@ -81,16 +81,17 @@
     <Compile Include="ViewModel\AddObstegenyaViewModel.cs" />
     <Compile Include="ViewModel\AddPatientViewModel.cs" />
     <Compile Include="ViewModel\DoctorListViewModel.cs" />
+    <Compile Include="ViewModel\PatientListViewModel.cs" />
     <Compile Include="ViewModel\RefreshDoctorViewModel.cs" />
-    <Compile Include="View\AddDoctorView.xaml.cs">
+    <Compile Include="View\AddWondows\AddDoctorView.xaml.cs">
       <DependentUpon>AddDoctorView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AddObstegenyaView.xaml.cs">
+    <Compile Include="View\AddWondows\AddObstegenyaView.xaml.cs">
       <DependentUpon>AddObstegenyaView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
-    <Compile Include="View\AddPatientView.xaml.cs">
+    <Compile Include="View\AddWondows\AddPatientView.xaml.cs">
       <DependentUpon>AddPatientView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DoctorListView.xaml.cs">
@@ -99,7 +100,10 @@
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\RefreshDoctorView.xaml.cs">
+    <Compile Include="View\PatientListView.xaml.cs">
+      <DependentUpon>PatientListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RefreshWindows\RefreshDoctorView.xaml.cs">
       <DependentUpon>RefreshDoctorView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -135,15 +139,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="View\AddDoctorView.xaml">
+    <Page Include="View\AddWondows\AddDoctorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AddObstegenyaView.xaml">
+    <Page Include="View\AddWondows\AddObstegenyaView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AddPatientView.xaml">
+    <Page Include="View\AddWondows\AddPatientView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -155,7 +159,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\RefreshDoctorView.xaml">
+    <Page Include="View\PatientListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RefreshWindows\RefreshDoctorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
