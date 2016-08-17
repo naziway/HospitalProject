@@ -7,24 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Configuration;
+
 namespace Data
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
     public partial class HospitalEntities : DbContext
     {
         public HospitalEntities()
-            : base("name=HospitalEntities")
+            : base(FileHelper.FileHelper.ConnectionString)
         {
+
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<Doctor> Doctors { get; set; }
         public virtual DbSet<Obstegenya> Obstegenyas { get; set; }
         public virtual DbSet<Patient> Patients { get; set; }

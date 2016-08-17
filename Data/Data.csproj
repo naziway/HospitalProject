@@ -40,6 +40,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -97,6 +98,10 @@
     <ProjectReference Include="..\DbTakingAway\DbTakingAway.csproj">
       <Project>{3c143fed-f5a4-487b-85bb-7df0d761bba7}</Project>
       <Name>DbTakingAway</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FileHelper\FileHelper.csproj">
+      <Project>{528f62b7-3631-4d66-a7ea-043dcc3a230d}</Project>
+      <Name>FileHelper</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
