@@ -25,6 +25,11 @@ namespace Data
 
             using (HospitalEntities dbData = new HospitalEntities())
             {
+                if (!dbData.Database.Exists())
+                {
+                    Loger.Logining.logger.Trace($"Невстановлено з'єднання з базою!!!");
+                    return null;
+                }
                 try
                 {
                     dbDoctors = dbData.Doctors.Select(
@@ -59,7 +64,7 @@ namespace Data
                 }
                 catch (Exception e)
                 {
-                     Loger.Logining.logger.Trace($"Додати нового лікаря не вдалося Exception:{e.Message}");
+                    Loger.Logining.logger.Trace($"Додати нового лікаря не вдалося Exception:{e.Message}");
                     return false;
                 }
             }

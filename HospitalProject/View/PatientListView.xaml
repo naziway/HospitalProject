@@ -7,7 +7,7 @@
         mc:Ignorable="d"
        Title="Список Пацієнтів" Height="386.001" Width="430.667">
     <Grid>
-        <DataGrid x:Name="dataGrid" SelectedIndex="{Binding SelectedIndex}" ItemsSource="{Binding PatientList}" HorizontalAlignment="Left" Height="325" Margin="0,31,0,0" VerticalAlignment="Top" Width="413"/>
+        <DataGrid x:Name="dataGrid" SelectedIndex="{Binding SelectedIndex}" ItemsSource="{Binding PatientList,IsAsync=True}" HorizontalAlignment="Left" Height="325" Margin="0,31,0,0" VerticalAlignment="Top" Width="413"/>
         <Button x:Name="button" Command="{Binding AddPatient}" Content="+" HorizontalAlignment="Left" Height="25" Margin="235,4,0,0" VerticalAlignment="Top" Width="52"/>
         <Button x:Name="button_Copy" Command="{Binding DeletePatient}" Content="-" HorizontalAlignment="Left" Height="25" Margin="292,4,0,0" VerticalAlignment="Top" Width="52"/>
         <Button x:Name="button_Copy1" Command="{Binding RefreshPatient}" Content="обновити" HorizontalAlignment="Left" Height="25" Margin="349,4,0,0" VerticalAlignment="Top" Width="64"/>

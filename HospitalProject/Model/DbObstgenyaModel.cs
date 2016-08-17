@@ -24,55 +24,51 @@ namespace Data
 
         public List<DbObstegenyaModel> GetData()
         {
-
             List<DbObstegenyaModel> dbObstegenyaModel = null;
 
             using (HospitalEntities dbData = new HospitalEntities())
             {
-                try
+                if (!dbData.Database.Exists())
                 {
-                    var obstegenyas = dbData.Obstegenyas.ToList<Obstegenya>();
-                    var patient = dbData.Patients.ToList<Patient>();
-                    var doctor = dbData.Doctors.ToList<Doctor>();
+                    Loger.Logining.logger.Trace($"Невстановлено з'єднання з базою!!!");
+                    return null;
+                }
 
+                var obstegenyas = dbData.Obstegenyas.ToList<Obstegenya>();
+                var patient = dbData.Patients.ToList<Patient>();
+                var doctor = dbData.Doctors.ToList<Doctor>();
+                var join = obstegenyas.Join(doctor, x => x.DoctorId, y => y.Id, (b, a) => new
+                {
+                    Id = b.Id,
+                    Doctorid = b.DoctorId,
+                    Patientid = b.PatientId,
+                    Doctor = a.FirstName,
+                    DoctorName = a.LastName,
+                    DoctorProf = a.Posada,
+                    Patient = b.PatientId,
+                    Date = b.Date,
+                    TimeWith = b.TimeWith,
+                    TimeTo = b.TimeTo
+                }).ToList();
 
-                    var join = obstegenyas.Join(doctor, x => x.DoctorId, y => y.Id, (b, a) => new
+                dbObstegenyaModel =join.Join(patient, x => x.Patientid, y => y.Id, (b, a) => new DbObstegenyaModel()
                     {
                         Id = b.Id,
-                        Doctorid = b.DoctorId,
-                        Patientid = b.PatientId,
-                        Doctor = a.FirstName,
-                        DoctorName = a.LastName,
-                        DoctorProf = a.Posada,
-                        Patient = b.PatientId,
+                        DoctorId = b.Doctorid,
+                        PatientId = b.Patientid,
+                        Doctor = b.Doctor,
+                        DoctorName = b.DoctorName,
+                        DoctorProf = b.DoctorProf,
+                        Patient = a.FirstName,
+                        PatientName = a.LastName,
                         Date = b.Date,
                         TimeWith = b.TimeWith,
                         TimeTo = b.TimeTo
-                    }).ToList();
+                    }).ToList<DbObstegenyaModel>();
 
-                    dbObstegenyaModel =
-                        join.Join(patient, x => x.Patientid, y => y.Id, (b, a) => new DbObstegenyaModel()
-                        {
-                            Id = b.Id,
-                            DoctorId = b.Doctorid,
-                            PatientId = b.Patientid,
-                            Doctor = b.Doctor,
-                            DoctorName = b.DoctorName,
-                            DoctorProf = b.DoctorProf,
-                            Patient = a.FirstName,
-                            PatientName = a.LastName,
-                            Date = b.Date,
-                            TimeWith = b.TimeWith,
-                            TimeTo = b.TimeTo
-                        }).ToList<DbObstegenyaModel>();
-                }
-                catch (Exception e)
-                {
-                     Loger.Logining.logger.Trace($"Завантажити данні обстежень не вдалося Exception:{e.Message}");
-                    return dbObstegenyaModel;
-                }
 
             }
+
             return dbObstegenyaModel;
         }
 
@@ -97,7 +93,7 @@ namespace Data
                 }
                 catch (Exception e)
                 {
-                     Loger.Logining.logger.Trace($"Додати данні обстежень не вдалося Exception:{e.Message}");
+                    Loger.Logining.logger.Trace($"Додати данні обстежень не вдалося Exception:{e.Message}");
                     return false;
                 }
             }

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Windows;
 using System.Windows.Input;
 using Data;
 using HospitalProject.Model;
-
+using HospitalProject.View;
 
 
 namespace HospitalProject.ViewModel
@@ -51,7 +52,18 @@ namespace HospitalProject.ViewModel
             {
                 if (dbObstegenyaModel == null)
                 {
-                    dbObstegenyaModel = new DbObstegenyaModel().GetData(); ;
+                    dbObstegenyaModel = new DbObstegenyaModel().GetData();
+
+                    if (dbObstegenyaModel == null)
+                    {
+                        MessageBox.Show("Не встановлено з'єднання з базою.....Па па!!!");
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            Application.Current.Windows.OfType<MainWindow>().FirstOrDefault()?.Close();
+
+                        });
+                    }
+
                     data = dbObstegenyaModel;
                     Loger.Logining.logger.Trace("Данні обстеження загрузилися з бази");
                 }
@@ -68,7 +80,7 @@ namespace HospitalProject.ViewModel
 
         #region Command
         private ICommand clickCommand;
-        public ICommand ClickCommand => clickCommand ?? (clickCommand = 
+        public ICommand ClickCommand => clickCommand ?? (clickCommand =
             new CommandHandler(() =>
             {
                 AddObstegenia addObstegenyaView = new AddObstegenia();

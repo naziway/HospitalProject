@@ -9,7 +9,7 @@ namespace HospitalProject.ViewModel
 {
     public class DoctorListViewModel : BaseViewModel
     {
-        private List<DbDoctorModel> doctorList = null;
+        private static List<DbDoctorModel> doctorList = null;
         private int? selectedIndex = null;
 
         public int? SelectedIndex
@@ -27,9 +27,12 @@ namespace HospitalProject.ViewModel
             {
                 if (doctorList == null)
                 {
-
                     doctorList = new DbDoctorModel().GetData();
-                     Loger.Logining.logger.Info("Данні Таблиці Доктор завантажено!!!");
+                    if (doctorList == null)
+                    {
+                        Loger.Logining.logger.Info("Данні Таблиці Доктор не завантажено!!!");
+                    }
+                    Loger.Logining.logger.Info("Данні Таблиці Доктор завантажено!!!");
                 }
                 return doctorList;
             }
@@ -61,23 +64,24 @@ namespace HospitalProject.ViewModel
                     if (selectedIndex == null)
                     {
                         MessageBox.Show("Невибрано лікаря!!!");
-                         Loger.Logining.logger.Info("Невибрано лікаря!!!");
+                        Loger.Logining.logger.Info("Невибрано лікаря!!!");
                         return;
                     }
-                    DbDoctorModel deleteDoc = DoctorList.ElementAt(SelectedIndex ?? + 1);
+                    DbDoctorModel deleteDoc = DoctorList.ElementAt(SelectedIndex ?? +1);
 
                     if (new DbDoctorModel().DeleteData(deleteDoc))
                     {
-                         MessageBox.Show("Видалено лікаря!!!");
-                         Loger.Logining.logger.Info("Видалено лікаря!!!");
+                        MessageBox.Show("Видалено лікаря!!!");
+                        Loger.Logining.logger.Info("Видалено лікаря!!!");
+                        doctorList.Remove(deleteDoc);
+                        OnPropertyChanged("DoctorList");
                     }
-                       
                     else
                     {
                         MessageBox.Show("Помилка");
-                         Loger.Logining.logger.Info("Помилка видалення лікаря");
+                        Loger.Logining.logger.Info("Помилка видалення лікаря");
                     }
-                        
+
 
                 }, _canExecute)); ;
             }

@@ -59,7 +59,7 @@ namespace HospitalProject.ViewModel
                     if (selectedIndex == null)
                     {
                         MessageBox.Show("Не вибрано пацієнта!!!");
-                         Loger.Logining.logger.Info("Не вибрано пацієнта!!!");
+                        Loger.Logining.logger.Info("Не вибрано пацієнта!!!");
                         return;
                     }
                     DbPatientModel deletePat = PatientList.ElementAt(SelectedIndex ?? +1);/// index?
@@ -67,12 +67,14 @@ namespace HospitalProject.ViewModel
                     if (new DbPatientModel().DeleteData(deletePat))
                     {
                         MessageBox.Show("Видалено пацієнта!!!");
-                         Loger.Logining.logger.Info("Видалено пацієнта!!!");
+                        Loger.Logining.logger.Info("Видалено пацієнта!!!");
+                        PatientList.Remove(deletePat);
+                        OnPropertyChanged("PatientList");
                     }
                     else
                     {
                         MessageBox.Show("Помилка");
-                         Loger.Logining.logger.Error("Помилка видалення");
+                        Loger.Logining.logger.Error("Помилка видалення");
                     }
 
 
@@ -90,7 +92,7 @@ namespace HospitalProject.ViewModel
                     if (selectedIndex == null)
                     {
                         MessageBox.Show("Не вибрано пацієнта!!!");
-                         Loger.Logining.logger.Info("Не вибрано пацієнта!!!");
+                        Loger.Logining.logger.Info("Не вибрано пацієнта!!!");
                         return;
                     }
                     RefreshPatientView addPatientView = new RefreshPatientView(PatientList.ElementAt(SelectedIndex ?? +1));

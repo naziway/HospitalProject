@@ -19,6 +19,11 @@ namespace Data
 
             using (HospitalEntities dbData = new HospitalEntities())
             {
+                if (!dbData.Database.Exists())
+                {
+                    Loger.Logining.logger.Trace($"Невстановлено з'єднання з базою!!!");
+                    return null;
+                }
                 dbPatient = dbData.Patients.Select(
                       s => new DbPatientModel() { Id = s.Id, FirstName = s.FirstName, LastName = s.LastName, BloodType = s.BloodType,DateBirth = s.DateBirth})
                       .ToList<DbPatientModel>();
@@ -43,8 +48,9 @@ namespace Data
                     dbData.SaveChanges();
                     return true;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Loger.Logining.logger.Trace($"Додати дані нового пацієнта не вдалося Exception:{e.Message}");
                     return false;
                 }
             }
@@ -65,8 +71,9 @@ namespace Data
                     dbData.SaveChanges();
                     return true;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Loger.Logining.logger.Trace($"Обновити дані  пацієнта не вдалося Exception:{e.Message}");
                     return false;
                 }
             }
@@ -84,8 +91,9 @@ namespace Data
                         dbData.SaveChanges();
                         return true;
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
+                        Loger.Logining.logger.Trace($"Невдале видалення Пацієнта Exception:{e.Message}");
                         return false;
                     }
             }
