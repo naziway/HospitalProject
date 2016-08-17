@@ -10,6 +10,7 @@ namespace HospitalProject.ViewModel
 {
     public class AddObstegenyaViewModel : BaseViewModel
     {
+        private DbObstegenyaModel dbObstegenyaModel;
         private List<DbDoctorModel> doctor;
         private List<DbPatientModel> patient;
         private List<string> chooseDoctor;
@@ -42,8 +43,8 @@ namespace HospitalProject.ViewModel
                     {
                         if (SendAdd())
                         {
-                            MainWindowViewModel.dbObstegenyaModel= null;
                             Check = "Додали нове обстеження";
+                            MainWindowViewModel.dbObstegenyaModel.Add(dbObstegenyaModel);
                         }
                     }
 
@@ -75,8 +76,6 @@ namespace HospitalProject.ViewModel
                 }, _canExecute)); ;
             }
         }
-
-
 
         #endregion
 
@@ -149,7 +148,7 @@ namespace HospitalProject.ViewModel
                     date = DateTime.Parse(value);
                     OnPropertyChanged("Date");
                 }
-                catch 
+                catch
                 {
 
                 }
@@ -217,6 +216,9 @@ namespace HospitalProject.ViewModel
                 if (t.with < timeWith && t.to > timeWith &&
                   t.with < timeTo && t.to < timeTo)
                     return false;
+                if (t.with == timeWith || t.to == timeWith ||
+                 t.with == timeTo || t.to == timeTo)
+                    return false;
             }
             return true;
         }
@@ -224,7 +226,7 @@ namespace HospitalProject.ViewModel
         {
             int doctorId = doctor.ElementAt(DocId).Id;
             int patientId = patient.ElementAt(PatId).Id;
-            DbObstegenyaModel dbObstegenyaModel = new DbObstegenyaModel();
+            dbObstegenyaModel = new DbObstegenyaModel();
 
             dbObstegenyaModel.Id = MainWindowViewModel.dbObstegenyaModel.Last().Id + 1;
             dbObstegenyaModel.DoctorId = doctor.Single(s => s.Id == doctorId).Id;

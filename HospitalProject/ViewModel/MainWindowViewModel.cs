@@ -5,7 +5,7 @@ using System.Threading;
 using System.Windows.Input;
 using Data;
 using HospitalProject.Model;
-using HospitalProject.NLogger;
+
 
 
 namespace HospitalProject.ViewModel
@@ -32,7 +32,7 @@ namespace HospitalProject.ViewModel
             get { return (int)sortSource; }
             set
             {
-                sortSource =(Sourting)value;
+                sortSource = (Sourting)value;
                 OnPropertyChanged("sortSource");
             }
         }
@@ -41,8 +41,8 @@ namespace HospitalProject.ViewModel
             get { return request; }
             set
             {
-                    request = value;
-                    OnPropertyChanged("Request");
+                request = value;
+                OnPropertyChanged("Request");
             }
         }
         public List<DbObstegenyaModel> Data
@@ -53,7 +53,7 @@ namespace HospitalProject.ViewModel
                 {
                     dbObstegenyaModel = new DbObstegenyaModel().GetData(); ;
                     data = dbObstegenyaModel;
-                    Logining.logger.Trace("Данні обстеження загрузилися з бази");
+                    Loger.Logining.logger.Trace("Данні обстеження загрузилися з бази");
                 }
                 return data;
             }
@@ -67,6 +67,16 @@ namespace HospitalProject.ViewModel
         #endregion
 
         #region Command
+        private ICommand clickCommand;
+        public ICommand ClickCommand => clickCommand ?? (clickCommand = 
+            new CommandHandler(() =>
+            {
+                AddObstegenia addObstegenyaView = new AddObstegenia();
+                addObstegenyaView.ShowDialog();
+                data = dbObstegenyaModel;
+                OnPropertyChanged("Data");
+            }, _canExecute));
+
         private ICommand find;
         public ICommand Find => find ?? (find = new CommandHandler(FindObj, _canExecute));
         #endregion
@@ -74,9 +84,9 @@ namespace HospitalProject.ViewModel
         #region Logic
         private void FindObj()
         {
+            if (Request == null) return;
             data = null;
-
-            string request = Request?.ToLower() ?? "";
+            string request = Request.ToLower();
             OnPropertyChanged("Data");
             switch (sortSource)
             {
@@ -103,7 +113,7 @@ namespace HospitalProject.ViewModel
                     break;
             }
             OnPropertyChanged("Data");
-            Logining.logger.Info("Відбувся пошук");
+            Loger.Logining.logger.Info("Відбувся пошук");
         }
         #endregion
     }

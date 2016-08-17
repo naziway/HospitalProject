@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading;
-using HospitalProject.NLogger;
+
 
 namespace Data
 {
@@ -68,7 +68,7 @@ namespace Data
                 }
                 catch (Exception e)
                 {
-                    Logining.logger.Trace($"Завантажити данні обстежень не вдалося Exception:{e.Message}");
+                     Loger.Logining.logger.Trace($"Завантажити данні обстежень не вдалося Exception:{e.Message}");
                     return dbObstegenyaModel;
                 }
 
@@ -97,7 +97,7 @@ namespace Data
                 }
                 catch (Exception e)
                 {
-                    Logining.logger.Trace($"Додати данні обстежень не вдалося Exception:{e.Message}");
+                     Loger.Logining.logger.Trace($"Додати данні обстежень не вдалося Exception:{e.Message}");
                     return false;
                 }
             }

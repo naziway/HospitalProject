@@ -48,10 +48,7 @@
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.3.7\lib\net45\NLog.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -83,7 +80,6 @@
     <Compile Include="Model\DbObstgenyaModel.cs" />
     <Compile Include="Model\DbPatientModel.cs" />
     <Compile Include="Model\MainWindowModel.cs" />
-    <Compile Include="NLogger\Logining.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModel\AddClass\AddDoctorViewModel.cs" />
     <Compile Include="ViewModel\AddClass\AddObstegenyaViewModel.cs" />
@@ -200,6 +196,10 @@
       <Project>{3c143fed-f5a4-487b-85bb-7df0d761bba7}</Project>
       <Name>DbTakingAway</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Loger\Loger.csproj">
+      <Project>{ccf5b623-9c05-4c52-bae3-05ac5a04bd7f}</Project>
+      <Name>Loger</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Burn.ico" />
@@ -207,9 +207,7 @@
   <ItemGroup>
     <Resource Include="Resources\loading_16.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

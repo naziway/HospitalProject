@@ -1,6 +1,6 @@
 ﻿using NLog;
 
-namespace HospitalProject.NLogger
+namespace Loger
 {
     public class Logining
     {

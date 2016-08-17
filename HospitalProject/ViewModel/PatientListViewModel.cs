@@ -3,7 +3,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using Data;
-using HospitalProject.NLogger;
 using HospitalProject.View;
 using HospitalProject.View.RefreshWindows;
 
@@ -31,7 +30,7 @@ namespace HospitalProject.ViewModel
                 if (patientList == null)
                 {
                     patientList = new DbPatientModel().GetData();
-                    Logining.logger.Trace("Завантажились данні Пацієнтів");
+                    Loger.Logining.logger.Trace("Завантажились данні Пацієнтів");
                 }
 
                 return patientList;
@@ -60,7 +59,7 @@ namespace HospitalProject.ViewModel
                     if (selectedIndex == null)
                     {
                         MessageBox.Show("Не вибрано пацієнта!!!");
-                        Logining.logger.Info("Не вибрано пацієнта!!!");
+                         Loger.Logining.logger.Info("Не вибрано пацієнта!!!");
                         return;
                     }
                     DbPatientModel deletePat = PatientList.ElementAt(SelectedIndex ?? +1);/// index?
@@ -68,12 +67,12 @@ namespace HospitalProject.ViewModel
                     if (new DbPatientModel().DeleteData(deletePat))
                     {
                         MessageBox.Show("Видалено пацієнта!!!");
-                        Logining.logger.Info("Видалено пацієнта!!!");
+                         Loger.Logining.logger.Info("Видалено пацієнта!!!");
                     }
                     else
                     {
                         MessageBox.Show("Помилка");
-                        Logining.logger.Error("Помилка видалення");
+                         Loger.Logining.logger.Error("Помилка видалення");
                     }
 
 
@@ -91,7 +90,7 @@ namespace HospitalProject.ViewModel
                     if (selectedIndex == null)
                     {
                         MessageBox.Show("Не вибрано пацієнта!!!");
-                        Logining.logger.Info("Не вибрано пацієнта!!!");
+                         Loger.Logining.logger.Info("Не вибрано пацієнта!!!");
                         return;
                     }
                     RefreshPatientView addPatientView = new RefreshPatientView(PatientList.ElementAt(SelectedIndex ?? +1));

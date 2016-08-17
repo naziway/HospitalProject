@@ -5,7 +5,7 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
-using HospitalProject.NLogger;
+
 
 namespace Data
 {
@@ -33,7 +33,7 @@ namespace Data
                 }
                 catch (Exception e)
                 {
-                    Logining.logger.Trace($"Завантажити данні Лікарів не вдалося Exception:{e.Message}");
+                     Loger.Logining.logger.Trace($"Завантажити данні Лікарів не вдалося Exception:{e.Message}");
                     return dbDoctors;
                 }
                 
@@ -59,7 +59,7 @@ namespace Data
                 }
                 catch (Exception e)
                 {
-                    Logining.logger.Trace($"Додати нового лікаря не вдалося Exception:{e.Message}");
+                     Loger.Logining.logger.Trace($"Додати нового лікаря не вдалося Exception:{e.Message}");
                     return false;
                 }
             }
@@ -81,7 +81,7 @@ namespace Data
                 }
                 catch (Exception e)
                 {
-                    Logining.logger.Trace($"Обновити данні Лікаря не вдалося Exception:{e.Message}");
+                     Loger.Logining.logger.Trace($"Обновити данні Лікаря не вдалося Exception:{e.Message}");
 
                     return false;
                 }
@@ -103,7 +103,7 @@ namespace Data
                     }
                     catch (Exception e)
                     {
-                        Logining.logger.Trace($"Видалити Лікаря не вдалося Exception:{e.Message}");
+                         Loger.Logining.logger.Trace($"Видалити Лікаря не вдалося Exception:{e.Message}");
                         return false;
                     }
             }
