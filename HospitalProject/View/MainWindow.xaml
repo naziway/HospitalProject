@@ -9,7 +9,7 @@
     <Grid>
         <Label x:Name="label" Content="Обстеження" Height="52" Margin="153,-15,150,0" Width="239" FontSize="35" VerticalAlignment="Top" HorizontalAlignment="Center"/>
 
-        <DataGrid   x:Name="dataGrid" HorizontalAlignment="Center" Margin="10,76,10,0" VerticalAlignment="Top" Height="552" Width="972" ItemsSource="{Binding Data, IsAsync=True}">
+        <DataGrid   x:Name="dataGrid" HorizontalAlignment="Center" IsReadOnly="True" Margin="10,76,10,0" VerticalAlignment="Top" Height="552" Width="972" ItemsSource="{Binding Data, IsAsync=True}">
             <DataGrid.Style>
                 <Style TargetType="{x:Type DataGrid}">
                     <Style.Triggers>
