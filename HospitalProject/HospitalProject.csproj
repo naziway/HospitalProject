@@ -76,6 +76,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Data\DbObstegenya.cs" />
+    <Compile Include="Data\DbPatient.cs" />
+    <Compile Include="Data\DbDoctor.cs" />
     <Compile Include="Model\DbDoctorModel.cs" />
     <Compile Include="Model\DbObstgenyaModel.cs" />
     <Compile Include="Model\DbPatientModel.cs" />
